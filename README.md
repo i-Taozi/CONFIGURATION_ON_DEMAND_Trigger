@@ -1,118 +1,108 @@
-# Card Library
-Travis master: [![Build Status](https://travis-ci.org/gabrielemariotti/cardslib.svg?branch=master)](https://travis-ci.org/gabrielemariotti/cardslib)
-Travis dev: [![Build Status](https://travis-ci.org/gabrielemariotti/cardslib.svg?branch=dev)](https://travis-ci.org/gabrielemariotti/cardslib)
+[Deprecated] PLA(PinterestLikeAdapterView)
+==================================
+
+**Deprecated**: This project is not maintaned anymore. Thanks.
+
+[![Build Status](https://travis-ci.org/GDG-Korea/PinterestLikeAdapterView.png?branch=master)](https://travis-ci.org/GDG-Korea/PinterestLikeAdapterView)[![Stories in Ready](https://badge.waffle.io/GDG-Korea/PinterestLikeAdapterView.png?label=ready&title=Ready)](https://waffle.io/GDG-Korea/PinterestLikeAdapterView)
+
+Open source project in order to implement pinterest like list view on android. (You can check how [pinterest app](https://play.google.com/store/apps/details?id=com.pinterest) looks like form)
+
+This project is statred based on Anders Ericson's blog post '[making your own 3d list](http://developer.sonymobile.com/2010/05/20/android-tutorial-making-your-own-3d-list-part-1/)'.
+
+But, currenty it is implemented based on android framework 2.3's list view source. 
+You can check modified list view sources in internal package.
+
+Not supported Features
+----------------------
+* Entry from XML layout.
+* Choice Mode & Item Selection.
+* Filter
+* Handle Key Event & Arrow Scrolling..
 
 
-**Card Library** provides an easy way to display a UI Card using the **Official Google CardView** in your Android app.
+Screen Shot
+----------------
+This is a screen shot of sample activity.
 
-Before using this library I recommend that you check out the new Google Material Guidelines.Don't over cardify your UI.
+![Example Image][3]
 
-![Screen](/demo/images/cardsv2_small.png)
+How to use
+-------------
+*To run Sample App.*
 
+  1. clone project.
 
-## Examples
+  2. run on your android phone.
 
+*To use Pinterest Like Multi Column View.*
 
-![Screen](/demo/images/demo_gplay.png)
+  1. check this project as library project.
 
-* **Sample** application: The demo is a showcase of the functionality of the library.
+  2. MultiColumListView is the view what you need.
 
-	 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=it.gmariotti.cardslib.demo)
-	 
-* **Extras** application: The demo-extras contains some examples of integration with other libraries
-	
-	[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=it.gmariotti.cardslib.demo.extras)
+Attributes
+-----------
+* **plaColumnNumber**
 
-  
-## Support
-Join the [**Google+ Community**](https://plus.google.com/u/0/communities/111800040690738372803): 
+	Number of column. (default value is 2)
 
-[![Join the Google+ Community](/demo/images/g+64.png)](https://plus.google.com/u/0/communities/111800040690738372803)
-	
-a place to discuss the library, share screenshots, ask for tips, talk with the author....﻿
+* **plaLandscapeColumnNumber**
 
-**If you would like, you can support my work, donating through the demo app.**
+	Number of column in landscape mode (the orientation that window's width is longer than height.)
 
-
-## Doc
-
-See the **[Card Library Guide](/doc/GUIDE.md)** to know all card library features and all customizations.
-The Guide provides an extensive doc, with all tips and full examples. **Don't miss it**.
-
-
-## Setup
-
-Card Library is pushed to Maven Central as an AAR, so you just need to add the following dependency to your `build.gradle`.
-
-    dependencies {
-        //Core
-        compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
-        
-        //Optional for built-in cards
-        compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
-                
-        //Optional for RecyclerView
-        compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.1.0'
-          
-        //Optional for staggered grid view
-        compile 'com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid:2.1.0'
-         
-        //Optional for drag and drop
-        compile 'com.github.gabrielemariotti.cards:cardslib-extra-dragdrop:2.1.0'
-        
-        //Optional for twoway  (coming soon)
-        //compile 'com.github.gabrielemariotti.cards:cardslib-extra-twoway:2.1.0'
-        
-    }
-
-If you would like to use the last **v1 stable version** you can use:
-    
-    dependencies {
-        //Core card library
-        compile 'com.github.gabrielemariotti.cards:library:1.9.1'
-
-        //Extra card library, it is required only if you want to use integrations with other libraries
-        compile 'com.github.gabrielemariotti.cards:library-extra:1.9.1'
-    }
-
-
-## ChangeLog
-
-* [Changelog:](CHANGELOG.md) A complete changelog
-
-
-Acknowledgements
+Overridable Methods
 --------------------
 
-* Thanks to [Roman Nurik][1] for [Android-SwipeToDismiss][2] classes and [UndoBarController][3] classes.
-* Thanks to [Niek Haarman][4] for some ideas and code taken from his [ListViewAnimations][5].
-* Thanks to [Chris Banes][6] for [ForegroundLinearLayout][7] class (See this [post][8] for more info).
-* Thanks to [Taylor Ling][9] for drag and drop icon.
-* Thanks to [Frankie Sardo][10] for some ideas and code taken from his [LinearListView][11]
-* Thanks to Google for code and idea from [Google IO 14][12]
+PLA_ListView was made based on Android 2.3 Framework's ListView, 
+and support those protected methods to let a user customize list view's behavior.
 
-Credits
--------
+	@Override
+	protected void onMeasureChild(View child, int position, int widthMeasureSpec, int heightMeasureSpec);	
 
-Author: Gabriele Mariotti (gabri.mariotti@gmail.com)
+	@Override
+	protected void onItemAddedToList(int position, boolean flow );
 
-<a href="https://plus.google.com/u/0/114432517923423045208">
-  <img alt="Follow me on Google+"
-       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/g+64.png" />
-</a>
-<a href="https://twitter.com/GabMarioPower">
-  <img alt="Follow me on Twitter"
-       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/twitter64.png" />
-</a>
-<a href="http://it.linkedin.com/in/gabrielemariotti">
-  <img alt="Follow me on LinkedIn"
-       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/linkedin.png" />
-</a>
+	@Override
+	protected void onLayoutSync(int syncPos);
+
+	@Override
+	protected void onLayoutSyncFinished(int syncPos);	
+
+	@Override
+	protected int getFillChildBottom();
+
+	@Override
+	protected int getFillChildTop();
+
+	@Override
+	protected int getScrollChildBottom(); 
+
+	@Override
+	protected int getScrollChildTop();
+
+	@Override
+	protected int getItemLeft(int pos);
+	
+	@Override
+	protected int getItemTop( int pos );	
+
+	@Override
+	protected int getItemBottom( int pos );
+
+	@Override
+	protected void onAdjustChildViews( boolean down );
+
+
+Contributing
+------------
+Any kinds of helps (bug report / pull request / suggestions) are welcomed =)
+
+If you are submitting a patch, please add your name to [AUTHORS.md](https://github.com/huewu/PinterestLikeAdapterView/blob/master/AUTHORS.md).
 
 License
 -------
 
-    Copyright 2013-2014 Gabriele Mariotti
+    Copyright 2012 PinterestLikeAdapterView authors. All rights reserved.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -126,21 +116,4 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
-
----
-
-
-Google and the Google Maps logo are registered trademarks of Google Inc., used with permission.
-
- [1]: https://plus.google.com/u/0/+RomanNurik/about
- [2]: https://github.com/romannurik/Android-SwipeToDismiss
- [3]: https://code.google.com/p/romannurik-code/source/browse/#git%2Fmisc%2Fundobar
- [4]: https://plus.google.com/+NiekHaarman
- [5]: https://github.com/nhaarman/ListViewAnimations
- [6]: https://plus.google.com/+ChrisBanes
- [7]: https://gist.github.com/chrisbanes/9091754
- [8]: https://plus.google.com/+AndroidDevelopers/posts/aHPVDtr6mcp
- [9]: https://plus.google.com/+TaylorLing
- [10]: https://plus.google.com/+FrankieSardo
- [11]: https://github.com/frankiesardo/LinearListView
- [12]: https://github.com/google/iosched
+ [3]: https://raw.github.com/GDG-Korea/PinterestLikeAdapterView/master/screenshot.png
