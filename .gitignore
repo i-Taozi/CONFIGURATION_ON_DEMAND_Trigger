@@ -1,21 +1,33 @@
-# Gradle work directory
-.gradle
+# built application files
+*.apk
+*.ap_
 
-# Build output directies
-*/build
-*/bin
-/build/
+# files for the dex VM
+*.dex
 
-# Buildship
-org.eclipse.buildship.core.prefs
+# Java class files
+*.class
 
-.project
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
 .classpath
-/.settings
+.project
 
-.vs/
-*.sln
-*.db
-*.vcxproj
-*.vcxproj.filters
-*.opendb
+# Intellij
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# MAC
+.DS_Store
+
+# Gradle
+.gradle/
+build/

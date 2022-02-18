@@ -1,39 +1,62 @@
-O�Xfs
-=====
+FlowLayout
+==========
 
-Java API for accessing CEN/XFS API, EMV Level 2 Kernel
+FlowLayout is an opensource Android library that alows developers to easily integrate flow layout into their app. FlowLayout is an layout that display its children in multiple rows depending on their size.
 
-## Code Status
+[![Build Status](https://api.travis-ci.org/blazsolar/FlowLayout.svg?branch=develop)](https://travis-ci.org/blazsolar/FlowLayout)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.wefika/flowlayout/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.wefika/flowlayout)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlowLayout-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1216)
 
-[![Build Status](https://api.travis-ci.org/AndreasFagschlunger/O2Xfs.svg?branch=develop)](https://travis-ci.org/AndreasFagschlunger/O2Xfs/)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/AndreasFagschlunger/o2xfs)](https://ci.appveyor.com/project/AndreasFagschlunger/o2xfs)
+Example
+-------
+![Framed example screenshot](https://raw.githubusercontent.com/blazsolar/FlowLayout/develop/images/framed_example_screenshot.png)
+Source code with examples is included in repository.
 
-## at.o2xfs.common
-This project contains common utility classes.
+Dependencies
+------------
+### Gradle
+```
+compile "com.wefika:flowlayout:<version>"
+```
 
-## at.o2xfs.log
-This project provides API for logging.
+### Maven
+```xml
+<dependency>
+    <groupId>com.wefika</groupId>
+    <artifactId>flowlayout</artifactId>
+    <version>[version]</version>
+</dependency>
+```
 
-## at.o2xfs.win32
-This Project provides API for accessing native Windows-Types over JNI.
+Usage
+-----
+```xml
+<com.wefika.flowlayout.FlowLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="start|top">
 
-## at.o2xfs.xfs
-This Project is a Wrapper-Project for the CEN/XFS-API. Native C-Constants are defined as enums etc. It uses at.o2xfs.win32 to access the native data types and structures.
+	<View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum" />
 
-## at.o2xfs.xfs.service
-This project provides a simpler API to use CEN/XFS. Basically there are Classes to execute CEN/XFS commands and you don't have to deal with details such as XFS StartUp, Open Services, Event-Handling, etc.
+</com.wefika.flowlayout.FlowLayout>
+```
 
-## at.o2xfs.operator
-This project is a application which provides a GUI for executing and querying CEN/XFS-Commands.
-
-## at.o2xfs.emv
-This project provides API for performing an EMV transaction. Its pure Java and indepentend of the CEN/XFS projects.
-
-## at.o2xfs.emv.demo
-This project demonstrates the use of the at.o2xfs.emv project.
-
-## at.o2xfs.ctapi
-This Project is a Java-Wrapper for the native CT-API, which is a common API to access Smart Card Readers.
-
-## at.o2xfs.emv.pinpad.impl.xfs
-This project provides a PIN-Pad implementation for the PINPad-Interface of the at.o2xfs.emv project using CEN/XFS.
+License
+-------
+	Copyright 2013 Blaž Šolar
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	    http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
