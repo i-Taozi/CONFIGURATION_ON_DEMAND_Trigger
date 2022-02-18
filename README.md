@@ -1,20 +1,66 @@
-[![Build Status](https://travis-ci.org/eyeem/chips-android.png)](https://travis-ci.org/eyeem/chips-android)
+[![Build Status](https://travis-ci.org/eyeem/potato.png?branch=master)](https://travis-ci.org/eyeem/potato)
 
-Chips library from EyeEm
+Potato Library
 =================
 
-EyeEm style bubbles (a.k.a. chips).
-
-[![](http://cdn.eyeem.com/thumb/h/400/f88f4ba735e60e5b6faa24b252d1c1b62e375f72-1384269072)] [![](http://cdn.eyeem.com/thumb/h/400/8c660660033aac40d3d099fbc220e993c57ed7eb-1384269111)]
+Sick of Android ContentProvider & SQLite database nonsense? This might be your next
+favorite library. An object oriented observable storage. Simpler than counting to potato.
 
 Usage
 ============
-There are two main widgets which you can use:
+The following code snippet covers basics of this library. For more see
+sample apps.
 
-- `ChipsEditText` for editable text and bubbles with an optional `AutocompletePopover`.
-- `ChipsTextView` if you plan only on displaying non-editable text with bubbles and optionally wish to provide some feedback on bubble press.
+``` java
+// Let's say we need to store Tweet objects, first
+// we need to extend Storage
+class TweetStorage extends Storage<Tweet> {
 
-Check out included `example` app to see how to play and what can be done with this library.
+   // ...override these 2 methods
+
+   @Override
+   public String id(Tweet tweet) {
+      return tweet.id;
+   }
+
+   @Override
+   public Class<Tweet> classname() {
+      return Tweet.class;
+   }
+
+   // ...and have some sort of singleton for the storage
+
+   private TweetStorage(Context context) {
+      super(context);
+   }
+
+   private static TweetStorage sInstance = null;
+
+   public static TweetStorage getInstance(){
+      if (sInstance == null) {
+         sInstance = new TweetStorage(context);
+         sInstance.init();
+      }
+      return sInstance;
+   }
+} // that's it!
+
+// ... now somewhere in your code you can do things like this:
+TweetStorage.List homeTimeline = TweetStorage.obtainList("home_timeline");
+homeTimeline.subscribe(new Subscription() {
+      @Override
+      public void onUpdate(Action action) {
+         // ...OMG MOAR TWEETS
+         // add code here to update UI
+      }
+   });
+
+// somewhere else in the code you can call something like this
+// it will populate ADD_ALL action to your subscribers
+homeTimeline.addAll(newTweetsIFetchedFromTheInternet);
+```
+
+There's more to the potato! You can override standard persistence layer (`KryoTransportLayer`) and have all of your items stored in a SQLite database. See `SQLiteTransportLayer`
 
 Including in your project
 =========================
@@ -32,7 +78,7 @@ dependencies {
         mavenLocal()
     }
 
-    compile 'com.eyeem.chips:library:0.9.0-SNAPSHOT@aar'
+    compile 'com.eyeem.potato:library:0.9.2.5-SNAPSHOT@aar'
 
     // ...other dependencies
 }
@@ -41,17 +87,13 @@ dependencies {
 Developed By
 ============
 
-* Lukasz Wisniewski [@vishna](https://twitter.com/vishna)
-
-Whorthwhile mentions
-============
-- [chips-edittext-library](https://github.com/kpbird/chips-edittext-library)
-- [chips from Google](https://android.googlesource.com/platform/frameworks/ex/+/refs/heads/master/chips)
+* Lukasz Wisniewski
+* Tobias Heine
 
 License
 =======
 
-    Copyright 2013 EyeEm Mobile GmbH
+    Copyright 2012-2015 EyeEm Mobile GmbH
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
