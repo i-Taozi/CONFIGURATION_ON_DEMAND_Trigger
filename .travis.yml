@@ -1,27 +1,45 @@
-language: android
-jdk: oraclejdk7
-sudo: false
-
+language: java
 env:
+  global:
+    - secure: "J5DYxGOG/3MjrzoEJLla/GVq2Z5Nx2oCbYEDNRbAnIIol0Dj5JK1++mXpED3+4fJKkNQBhqMZn1t6P0s/OIng0pUpg9QB7tKAMdJ+N7FKRAM5Ko8g+XhWXWAmxbob3uy2qPIEGWDczskTBmwZus/Zv3N59qwNUGq3HRiCR5BR3g="
   matrix:
-  - ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
-#  - ANDROID_TARGET=android-9  ANDROID_ABI=armeabi
-
-android:
-  components:
-    - build-tools-23.0.1
-    - android-23
-#    - android-9
-
+    - TESTENV=default
+cache:
+  directories:
+    - $HOME/.gradle
 before_install:
-  # Emulator
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - echo "disablePreDex" >> gradle.properties
-
-before_script:
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
+  - cp $TRAVIS_BUILD_DIR/uaa/scripts/travis/init.gradle $HOME/.gradle
+  - git pull --unshallow
+install:
+  - $TRAVIS_BUILD_DIR/scripts/travis/apply_spring_profiles_to_login_yaml.sh $TESTENV
+  - cat src/main/resources/login.yml
+script:
+  - ./gradlew -Dspring.profiles.active=$TESTENV :cobertura
 after_success:
-  - ./gradlew coveralls
+  - ./gradlew :coveralls
+  - python scripts/travis/travis_after_all.py
+  - export $(cat .to_export_back)
+  - |
+      if [ "$BUILD_LEADER" = "YES" ]; then
+        if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
+          echo "All Succeded!"
+          if [ "$TRAVIS_BRANCH" = "develop" ]; then
+            $TRAVIS_BUILD_DIR/scripts/travis/auto-bump-uaa.sh
+          fi
+        else
+          echo "Some Failed"
+        fi
+      fi
+after_failure:
+  - python scripts/travis/travis_after_all.py
+  - export $(cat .to_export_back)
+  - |
+      if [ "$BUILD_LEADER" = "YES" ]; then
+        if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
+          echo "All Failed"
+        else
+          echo "Some Failed"
+        fi
+      fi
+after_script:
+  - echo leader=$BUILD_LEADER status=$BUILD_AGGREGATE_STATUS

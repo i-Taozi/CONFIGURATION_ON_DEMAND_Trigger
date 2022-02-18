@@ -1,33 +1,35 @@
-# built application files
-*.apk
-*.ap_
-
-# files for the dex VM
-*.dex
-
-# Java class files
-*.class
-
-# generated files
-bin/
-gen/
-
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Eclipse project files
+*~
+#*
+.#*
+*#
+*/src/main/java/META-INF/
+*/src/main/webapp/META-INF/
+*/src/main/*/WEB-INF/lib/
+src/main/resources/profiles/dev/
+out/
+.access_token
+.result
+.cache
 .classpath
 .project
-
-# Intellij
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# MAC
 .DS_Store
-
-# Gradle
+.settings/
+.springBeans
+bin/
+*.iml
+*.iws
+*.ipr
+.idea/
+cargo-installs/
+.metadata/
+Servers/
+*.swp
+*.swo
+coverage.ec
+git.properties
+build.properties
+*.md.html
+phantomjsdriver.log
 .gradle/
 build/
+/classes/
