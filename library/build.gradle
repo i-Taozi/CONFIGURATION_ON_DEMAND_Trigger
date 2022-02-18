@@ -1,34 +1,104 @@
-apply plugin: 'android-library'
-apply plugin: 'android-test'
-
-repositories {
-    mavenCentral()
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+buildscript {
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+//        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
     }
 }
 
-dependencies {
-	compile 'com.android.support:support-v4:19.0.+'
+apply plugin: 'com.android.library'
 
-    androidTestCompile 'junit:junit:4.10'
-    androidTestCompile 'org.mockito:mockito-all:1.9.5'
-    androidTestCompile 'org.robolectric:robolectric:2.3'
-    androidTestCompile 'com.squareup:fest-android:1.0.+'
+dependencies {
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+        mavenCentral()
+        mavenLocal()
+    }
+
+    //compile 'io.reactivex:rxandroid:0.24.0'
+    //testCompile 'junit:junit:4.10'
+    //testCompile 'org.robolectric:robolectric:2.1.+'
+    //testCompile 'com.squareup:fest-android:1.0.+'
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
 
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src/main/java']
-            res.srcDirs = ['res']
-            androidTest.setRoot('src/test')
-        }
+    lintOptions {
+        abortOnError false
     }
 }
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/eaa6b5404b7594e6c23b884fdc5795f545db55dd/gradle-mvn-push.gradle'
+
+// SONATYPE DEPLOYMENT
+// in order to deploy, run: gradle uploadArchives
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+version = "0.9.11-SNAPSHOT"
+group = "com.eyeem.chips"
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: sonatypeRepo) {
+            authentication(userName: sonatypeUsername, password: sonatypePassword)
+        }
+
+        snapshotRepository(url: sonatypeSnapshotRepo) {
+            authentication(userName: sonatypeUsername, password: sonatypePassword)
+        }
+
+        pom.project {
+            name 'Chips'
+            packaging 'aar'
+            description 'EyeEm style text baloons library'
+            url 'https://github.com/eyeem/chips-android'
+
+            scm {
+                url 'scm:git@github.com:eyeem/chips-android.git'
+                connection 'scm:git@github.com:eyeem/chips-android.git'
+                developerConnection 'scm:git@github.com:eyeem/chips-android.git'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'vishna'
+                    name 'Lukasz Wisniewski'
+                    email 'lukasz@eyeem.com'
+                }
+            }
+        }
+    }
+}
