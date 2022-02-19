@@ -39,15 +39,13 @@ Thumbs.db
 # Gradle Files #
 ################
 .gradle
-.m2
 
 # Build output directies
 /target
-**/target
+*/target
 /build
-**/build
-/bin
-**/bin
+*/build
+build/
 
 # IntelliJ specific files/directories
 out
@@ -62,10 +60,7 @@ atlassian-ide-plugin.xml
 .project
 .settings
 .metadata
+bin/
 
 # NetBeans specific files/directories
 .nbattrs
-
-*.class
-*.log
-**/deps

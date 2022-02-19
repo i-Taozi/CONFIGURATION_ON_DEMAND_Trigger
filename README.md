@@ -1,36 +1,68 @@
-=====
-Karyon 2.0 is no longer supported.  We are in the process of retiring Karyon in favor of using Governator for bootstrapping and OSS components with -guice or -governator subprojects.
-=====
+## Documentation
+
+See the [Wiki](https://github.com/Netflix/Turbine/wiki) for full documentation, examples, operational details and other information.
+
+## Build Status
+
+<a href='https://travis-ci.org/Netflix/Turbine/builds'><img src='https://travis-ci.org/Netflix/Turbine.svg?branch=2.x'></a>
+
+## Bugs and Feedback
+
+For bugs, questions and discussions please use the [Github Issues](https://github.com/Netflix/Turbine/issues).
+
+## Binaries
+
+Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Cnetflix%20turbine).
+
+### Library
+
+Dependencies on the library for embedded use are found on Maven Central.
+
+Example for Maven:
+
+```xml
+<dependency>
+    <groupId>com.netflix.turbine</groupId>
+    <artifactId>turbine</artifactId>
+    <version>2.minor.patch</version>
+</dependency>
+```
+and for Ivy:
+
+```xml
+<dependency org="com.netflix.turbine" name="turbine" rev="2.minor.patch" />
+```
+
+### Executable
+
+The standalone executable can also be found on Maven Central or in the Github Releases section.
 
 
-karyon
-======
+## Build
 
-[![Build Status](https://travis-ci.org/Netflix/karyon.svg)](https://travis-ci.org/Netflix/karyon/builds)
+* You need Java 8 or later.
 
-Karyon in the context of molecular biology is essentially "a part of the cell containing DNA and RNA and responsible for growth and reproduction."
+To build:
 
-At Netflix, Karyon is a framework and library that essentially contains the blueprint of what it means to implement a cloud ready web service.  All the other fine grained web services and applications that form our SOA graph can essentially be thought as being cloned from this basic blueprint.
+```
+$ git clone git@github.com:Netflix/Turbine.git
+$ cd Turbine/
+$ ./gradlew build
+```
 
-Karyon can be thought of as a nucleus that contains the following main ingredients.
+ 
+## LICENSE
 
-* Bootstrapping , dependency and Lifecycle Management (via [Governator](https://github.com/Netflix/governator))
-* Runtime Insights and Diagnostics (via `karyon-admin-web` module)
-* Configuration Management (via [Archaius](https://github.com/Netflix/archaius))
-* Service discovery (via [Eureka](https://github.com/Netflix/eureka))
-* Powerful transport module (via [RxNetty](https://github.com/Netflix/RxNetty))
+Copyright 2014 Netflix, Inc.
 
-Getting Started
-===============
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Easiest way to get started with karyon is to see the examples provided with karyon under [karyon-examples](karyon2-examples) module.
+<http://www.apache.org/licenses/LICENSE-2.0>
 
-Documentation
-==============
-
-Please see [wiki] (https://github.com/Netflix/karyon/wiki) for detailed documentation.
-
-Have a question?
-===============
-
-We have a discussion group for karyon users (i.e. you!) here: https://groups.google.com/forum/?fromgroups#!forum/karyon-users
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
