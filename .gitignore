@@ -1,41 +1,98 @@
-# OS specific files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+###Android###
 
-# Built application files
-/*/build/
-build/
+# built application files
+*.apk
+*.ap_
 
-# Crashlytics configuations
-com_crashlytics_export_strings.xml
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
 
-# Gradle generated files
+# Eclipse project files
+.classpath
+.project
+
+
+###Eclipse###
+
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+
+###Maven###
+
+target/
+
+
+###Gradle###
+
 .gradle/
+build/
+.gradletasknamecache
 
-# Signing files
-.signing/
-
-# User-specific configurations
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
-.idea/runConfigurations.xml
-.idea/gradle.xml
-.idea/caches/
+###IntelliJ###
+ 
 *.iml
+*.ipr
+*.iws
+.idea/
+
+
+###Actionscript###
+ 
+# Build and Release Folders
+bin/
+bin-debug/
+bin-release/
+
+# Project property files
+.actionScriptProperties
+.flexProperties
+.settings/
+.project
+
+###OSX###
+ 
+.DS_Store
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
 
