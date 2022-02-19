@@ -1,44 +1,23 @@
 sudo: false
-
-language: android
+language: java
+jdk:
+  - openjdk8
 env:
-  matrix:
-# Emulator for android-23 never comes up.
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-    - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-android:
-  components:
-    - platform-tools
-    - tools
-    - build-tools-23.0.2
-    - build-tools-19.1.0
-    - android-23
-    - android-22
-    - android-19
-    - sys-img-armeabi-v7a-android-22
-    - sys-img-armeabi-v7a-android-19
-    - extra-android-support
-    - extra-google-m2repository
-    - extra-android-m2repository
-  licenses:
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-    - '.*intel.+'
-
-before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
-# Emulator Management: Create, Start, Wait, Unlock
-before_script:
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window -gpu off -verbose &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
-script:
-  - chmod +x gradlew
-  - ./gradlew connectedFreeDebugAndroidTest
+  global:
+    - JAVA_OPTS="-Xmx2048M"
+    - GRADLE_OPTS="-Xmx2048M"
+jobs:
+  include:
+    - name: "Plug-in registry pull-request"
+      install: "./gradlew"
+      script: skip
+      deploy:
+        - provider: script
+          script: bash .travis/registry.sh
+          skip_cleanup: true
+          on:
+            tags: true
+            repo: dita-ot/dita-ot
+notifications:
+  slack:
+    secure: IAA4d9O2Dw1hkpY9cwxJz++VMjkgbV3EuaS09DGFujvHl2eQtpKTloE0/CDF+NZA4tcbH1dNqsGw3ETLmrqA581CLpmiiq3LG02cDMoSXZeOKB/9vo6tvLFg0UMawzo+FomJS/hvCmS5KirrFqZQKE5g6SCC05UBM5nwI5d0vOw=
