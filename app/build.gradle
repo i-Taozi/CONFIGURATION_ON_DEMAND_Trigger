@@ -1,247 +1,92 @@
+// apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.android.application'
 
-def getGitHash = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'rev-parse', '--short', 'HEAD'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
+// ---------------
+// required for jitpack
+// apply plugin: 'maven-publish' 
+apply plugin: 'maven' 
+// ---------------
+
 
 android {
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src/main']
-            if (rootProject.ext.allowNonFree) {
-                java.srcDirs += ['src/play']
-            } else {
-                java.srcDirs += ['src/free']
-            }
-            resources.srcDirs = java.srcDirs
-            aidl.srcDirs = java.srcDirs
-            renderscript.srcDirs = java.srcDirs
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-        test.setRoot('test')
-    }
-
-    flavorDimensions "all"
-    productFlavors {
-        latest {
-            dimension "all"
-            minSdkVersion 15
-            compileSdkVersion rootProject.ext.compileSdkVersion
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            versionName rootProject.ext.versionName
-            versionCode rootProject.ext.latestBaseVersionCode + rootProject.ext.versionCode
-        }
-    }
-
-    splits {
-        abi {
-            // Disable, app bundles used in play
-            // enable rootProject.ext.allowNonFree && gradle.startParameter.taskNames.contains("assembleLatestRelease")
-            // relevant archs only - these are the only available anyway for newer NDK
-            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-            universalApk true
-        }
-    }
-
+    // compileSdkVersion 26
+    compileSdkVersion 29
     defaultConfig {
-        // Set a separate applicationId to allow variant installations
-        // The applicationId is also used in some xml files (android:targetPackage)
-        // The packageId (in the manifest) is never changed
-        // See also applicationIdFull in common/build.gradle, must be in sync
-        applicationId = rootProject.ext.applicationId
-        vectorDrawables.useSupportLibrary = true
-        //By default all AppCompat translations are included, saves 350KB
-        resConfigs "ar", "bs", "cs", "ca", "de", "en", "es", "fa", "fi", "fr", "hu", "id", "in", "it", "iw", "ja", "lt", "nb", "nl", "pl", "pt", "ro", "ru", "sv", "tr", "uk", "zh"
-    }
+        applicationId 'de.k3b.android.toGoZip'
+        minSdkVersion 16
+        // targetSdkVersion 26
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 23
+        versionCode 27
+        versionName '2.1.27.210419'
 
-    signingConfigs {
-        //noinspection GroovyMissingReturnStatement
-        release {
-        }
+        // 2.1.27.210419 (27) Migrated to api29/AndroidX/minSdk-16
+        // 2.1.26.210206 (26) Translation updates ur, ru
+        // 2.1.25.200422 (25) Translation updates cs, es, eu, fr
+        // 2.1.24.200404 (24) Translation updates nl, zh-CN
+        // 2.1.23.191001 (23) L2.1.23 Fix made "Generate Zip-Subfolders below" case-insensitive
+        // 2.1.22.190804 (22) L2.1.22.3 lib Incompatible api changes: ZipLog: Replace enum ZipJobState with int (smaller android footprint); CompressJob can be async caneceld from gui thread
+        // L2.1.21.2 (21 190723) lib Incompatible api changes for more ZipLog-ing
+        // 2.1.21.190725 (21) More detailed logging api; new libK3bAndroidZip
+        // 2.0.20.190606 (20) Fix crash when writing to root dir; ar translation update
+        // 2.0.19.190413 (19) Minified reduced apk-size from 536kb to 178kb
+        // 2.0.18.181224 (18) Crashlog support (via Settings-Menu)
+        // 2.0.17.181130 (17) Settings-Menu send/view/edit/delete zip;zip-subfolder-path; logfile in zip; bugfix duplicate in zip-subfolder
+        // 2.0.13.18130  (13) new translation ru ar updates bn ja
+        // 2.0.12.180516 (12) translation updates id, vi, pl, ja, fr
+        // 2.0.11.171227 (11) new zip impl to support android-5.0ff; fixed fdroid encoding and image-dir; translations id, nl, hi, zh-TW; fixed tr, zh-CN, pt
+        // 1.0.10.171128 (10) more translations es, zh, bd,tr
+        // 1.0.9.170725 (9) translations ja/fr/es + weblate
+        // Maintanance versionName '1.0.8.170626'
+        // Maintanance versionName '1.0.7.20170623'
+        // Improvements v1.0.6.20141207
+        // Improvements v1.0.6.20141207
+        // Improvements v0.2.2.20141120
+        // Initial Version v0.1.1.20141109
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
     buildTypes {
-        debug {
-            // Separate the debug build, sync with common/build.gradle
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-${getGitHash()}"
-        }
         release {
-            applicationIdSuffix ""
-
-            minifyEnabled rootProject.ext.allowNonFree
-            shrinkResources rootProject.ext.allowNonFree
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.txt'
-            signingConfig signingConfigs.release
+            minifyEnabled true
+            // shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            // shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    lintOptions {
-        //Configure checks with paths
-        lintConfig file("lint.xml")
-        baseline file("lint-baseline.xml")
-        checkReleaseBuilds true
-
-        showAll true
-        //debug issues in Travis
-        textReport true
-        textOutput 'stdout'
+    productFlavors {
     }
-}
+	
+	lintOptions {
+		// https://stackoverflow.com/questions/31350350/generating-signed-apk-error7-missingtranslation-in-build-generated-res-gen
+		// MissingTranslation : not all crowdwin translations are complete so ignore them
+        disable 'MissingTranslation','ValidFragment', 'ContentDescription', 'AndroidLintPluralsCandidate', 'AndroidLintRtlHardcoded'
 
-repositories {
-    google()
-    mavenCentral() //MapBox GraphView
-    maven { url "https://oss.sonatype.org/content/groups/public/" } //pebblekit
-    if (rootProject.ext.allowNonFree && rootProject.file("mapbox.properties").exists()) {
-        maven {
-            url 'https://api.mapbox.com/downloads/v2/releases/maven'
-            authentication {
-                basic(BasicAuthentication)
-            }
-            credentials {
-                // Do not change the username below.
-                // This should always be `mapbox` (not your username).
-                username = 'mapbox'
-                // Use the secret token you stored in gradle.properties as the password
-                def props = new Properties()
-                props.load(new FileInputStream(rootProject.file("mapbox.properties")))
-                password = props.mapboxDownloadToken
-            }
-        }
+        abortOnError false
     }
 }
 
 dependencies {
-    implementation project(':common')
-    implementation project(':hrdevice')
-
-    implementation "androidx.annotation:annotation:${rootProject.ext.annotation_version}"
-    implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompat_version}"
-
-    latestImplementation "com.google.android.material:material:1.4.0"
-    if (rootProject.ext.enableWear) {
-        latestWearApp project(':wear')
-        //noinspection GradleDependency
-        latestImplementation "com.google.android.gms:play-services-wearable:${rootProject.ext.googlePlayServicesVersion}"
-    }
-
-    implementation "com.squareup.okhttp3:okhttp:3.12.3"
-    latestImplementation 'com.getpebble:pebblekit:4.0.1'
-    if (rootProject.ext.allowNonFree) {
-        // MapBox uses telemetry, without Play there may be exceptions from mapbox (OK to ignore)
-        latestImplementation "com.google.android.gms:play-services-location:${rootProject.ext.googlePlayServicesVersion}"
-
-        //noinspection GradleDependency
-        latestImplementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2'
-        latestImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0'
-        latestImplementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-scalebar-v8:0.2.0'
-    }
-    latestImplementation 'com.jjoe64:graphview:4.2.2'
-
-    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
-    testImplementation "org.mockito:mockito-core:${rootProject.ext.mockitoVersion}"
-}
-
-allprojects {
-    tasks.withType(JavaCompile) {
-        // options.compilerArgs << "-Xlint:deprecation";
-        options.compilerArgs << "-Xlint:unchecked"
-    }
-}
-
-def props = new Properties()
-if (rootProject.file("release.properties").exists()) {
-    props.load(new FileInputStream(rootProject.file("release.properties")))
-
-    android.signingConfigs.release.storeFile rootProject.file(props.keyStore)
-    android.signingConfigs.release.storePassword props.keyStorePassword
-    android.signingConfigs.release.keyAlias props.keyAlias
-    android.signingConfigs.release.keyPassword props.keyAliasPassword
-} else {
-    project.logger.info('INFO: Set the values storeFile, storePassword, keyAlias, and keyPassword in release.properties to sign the release.')
-    android.buildTypes.release.signingConfig = null
-}
-
-android.applicationVariants.all {
-    // Note: As a minimum extra security at least obfuscate the strings with Proguard
-    if (rootProject.ext.allowNonFree && rootProject.file("mapbox.properties").exists()) {
-        // https://www.mapbox.com/account/
-        props.load(new FileInputStream(rootProject.file("mapbox.properties")))
-        buildConfigField 'int', 'MAPBOX_ENABLED', "1"
-        buildConfigField 'String', 'MAPBOX_ACCESS_TOKEN', props.mapboxAccessToken
-    }
-    else {
-        buildConfigField 'int', 'MAPBOX_ENABLED', "0"
-        buildConfigField 'String', 'MAPBOX_ACCESS_TOKEN', '""'
-    }
-
-    if (rootProject.file("runalyze.properties").exists()) {
-        // Contact Runalyze team at https://forum.runalyze.com/
-        props.load(new FileInputStream(rootProject.file("runalyze.properties")))
-        buildConfigField 'int', 'RUNALYZE_ENABLED', "1"
-        buildConfigField 'String', 'RUNALYZE_ID', props.CLIENT_ID
-        buildConfigField 'String', 'RUNALYZE_SECRET', props.CLIENT_SECRET
-    }
-    else {
-        // Demo, connect to testing.runalyze.com
-        buildConfigField 'int', 'RUNALYZE_ENABLED', "0"
-        buildConfigField 'String', 'RUNALYZE_ID', '"8_2jx5jt9r39ic40ooc80c8c0884okgk0owsowg808c4csg8ko8g"'
-        buildConfigField 'String', 'RUNALYZE_SECRET', '"1v7d6nwe1v9c8skok44g0gc8cc04cc0wwwo8swwgckoogwsww4"'
-    }
-
-    if (rootProject.file("dropbox.properties").exists()) {
-        // Create an app at https://www.dropbox.com/developers/apps/
-        // Dropbox API, App folder -> create app
-        // Enable additional users, Redirect URI:http://localhost:8080/runnerup/dropbox, Disallow implicit grant
-        // Set branding icon
-        // Create dropbox.properties with two lines:
-        //   CLIENT_ID="replace_dropbox_id"
-        //   CLIENT_SECRET="replace_dropbox_secret"
-        props.load(new FileInputStream(rootProject.file("dropbox.properties")))
-        buildConfigField 'int', 'DROPBOX_ENABLED', "1"
-        buildConfigField 'String', 'DROPBOX_ID', props.CLIENT_ID
-        buildConfigField 'String', 'DROPBOX_SECRET', props.CLIENT_SECRET
-    }
-    else {
-        buildConfigField 'int', 'DROPBOX_ENABLED', "0"
-        buildConfigField 'String', 'DROPBOX_ID', "null"
-        buildConfigField 'String', 'DROPBOX_SECRET', "null"
-    }
-}
-
-//Based on an example from https://developer.android.com/studio/build/configure-apk-splits.html
-//Most comments from there removed
-
-// Map for the version code that gives each ABI a value (generic has lower value)
-ext.abiCodes = ['arm64-v8a': 8, 'armeabi':2, 'armeabi-v7a':3, 'mips':4, 'mips64':5, 'x86':6, 'x86_64':7]
-
-import com.android.build.OutputFile
-
-// For each APK output variant, override versionCode with a combination of
-// ext.abiCodes * 10000 + variant.versionCode. (universal gets no offset)
-android.applicationVariants.all { variant ->
-    variant.outputs.each { output ->
-        def baseAbiVersionCode =
-                project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
-
-        if (baseAbiVersionCode != null) {
-            output.versionCodeOverride =
-                    baseAbiVersionCode * 10000 + variant.versionCode
-        }
-    }
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //  implementation 'eu.lp0.slf4j:slf4j-android:1.7.7-1'
+    // implementation 'com.android.support:appcompat-v7:20.0.0'
+    // implementation 'com.android.support:support-v4:26.2.1'
+    // workaround: android-studio-3.2.1 editor marks "DocumentFile" as unknown if using api or implementation
+    // implementation 'com.android.support:support-v4:23.2.1'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(':libK3bAndroidZip')
+    implementation project(':libK3bZip')
+    implementation project(':libK3b')
+    //  implementation 'org.slf4j:slf4j-android:1.7.7@jar' // replaces cellInfoLib.'slf4j-api'
+    implementation 'eu.lp0.slf4j:slf4j-android:1.7.7-1@jar'
+    // using slf4j-android-1.7.6-1-SNAPSHOT.jar from libs
+    //  implementation 'org.slf4j:slf4j-api:1.7.6@jar'
+    // implementation 'com.android.support:appcompat-v7:19.+'
+    implementation 'org.slf4j:slf4j-api:1.7.7@jar'
 }

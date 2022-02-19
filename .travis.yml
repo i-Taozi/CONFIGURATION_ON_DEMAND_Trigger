@@ -1,35 +1,39 @@
-env:
-  global:
-  - ANDROID_API=30
-  - ANDROID_BUILD_TOOLS=30.0.3
-  - ADB_INSTALL_TIMEOUT=5
+# travis build for #toGoZip (https://github.com/k3b/ToGoZip/)
 language: android
+
 jdk:
-- oraclejdk8
-cache:
-  directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -f $HOME/.gradle/caches/*/classAnalysis/cache.properties.lock
-- rm -f $HOME/.gradle/caches/*/jarSnapshots/cache.properties.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+# graphviz to render javadoc uml
+# https://docs.travis-ci.com/user/multi-os/
+      - graphviz
+
 android:
   components:
-  - tools #latest for "builtin" sdk tools (24.4.1 in Android-25)
-  #To update SDK Tools to latest, another update is required
-  #- tools #latest, 26.1.1 as of 2018-10-07
-  #- platform-tools #latest, 28.0.1 as of 2018-10-07
-  - build-tools-$ANDROID_BUILD_TOOLS
-  - android-$ANDROID_API
-  - extra-android-m2repository
-  - extra-google-m2repository
-  - extra-google-google_play_services
-notifications:
-  email: false
+    # https://github.com/travis-ci/travis-ci/issues/5036
+    - tools
+
+    # values in gradle.properties and .travis must be the same
+    - android-29
+
+    - add-on
+    - extra
+
+before_install:
+# http://stackoverflow.com/questions/33820638/travis-yml-gradlew-permission-denied
+# must execute
+# git update-index --chmod=+x gradlew
+# instead of 
+# - chmod +x gradlew
+#
+# https://stackoverflow.com/questions/52274229/travis-ci-android-28-licenses-have-not-been-accepted
+# - yes | sdkmanager "platforms;android-28"
+
+  - yes | sdkmanager "platforms;android-23"
+
 script:
-- ./gradlew wear:lintRelease
-- ./gradlew app:lintLatestRelease
-- ./gradlew app:assembleLatestRelease
-- ./gradlew app:test
+  - jdk_switcher use oraclejdk8
+  - ./gradlew assemble  libK3b:test libK3bZip:test

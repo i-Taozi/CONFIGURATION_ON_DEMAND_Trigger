@@ -1,26 +1,6 @@
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Gedit temp files
-*~
-
-# gradle files
-.gradle/
-.idea/
-build/
-gen/
-
-#app bundle files
-*.aab
-
-# Intellij files (Android Studio)
+.gradle
+.idea
+.DS_Store
+/build
 *.iml
-
-# NetBeans IDE project files
-/.nb-gradle/private/
-
-# Release signing property file
-release.properties
-/mapbox.properties
-/runalyze.properties
-/dropbox.properties
+/*.properties
