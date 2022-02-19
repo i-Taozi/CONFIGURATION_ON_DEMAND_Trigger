@@ -6,14 +6,9 @@
 ##################
 # intellij files #
 ##################
-*.iws
 *.iml
-*.ipr
-!.idea/runConfigurations
-.idea/inspectionProfiles
-.idea/libraries
-.idea/codeStyles
-.idea/*.*
+.idea
+*/.idea
 
 #################
 # eclipse files #
@@ -26,21 +21,17 @@
 # maven generated files #
 #########################
 /target
-*.versionsBackup
 
 #############
 # Zip files #
 #############
 *.tar
-*.tar.gz
 *.zip
 *.7z
 *.dmg
 *.gz
 *.iso
 *.jar
-*.war
-*.ear
 *.rar
 
 ##############
@@ -65,9 +56,3 @@
 /.gradle
 /gradle
 /pom.xml.bak
-
-################
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-################
-hs_err_pid*
-/.attach_pid*

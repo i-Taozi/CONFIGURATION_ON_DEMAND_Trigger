@@ -1,27 +1,16 @@
+# jgeohash .travis.yml
+
 language: java
 
 jdk:
-  - openjdk11
-  - openjdk8
-
-before_install:
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-  - "export DISPLAY=:99.0"
-
-
-install: /bin/true
-script: ./gradlew -Dci=true continuousIntegration
-
-cache:
-  directories:
-  - $HOME/.gradle
-  - $HOME/.m2/repository/webdriver
-
-sudo: false
+    - openjdk8
 
 notifications:
-  email:
-    - dev@tapestry.apache.org
+    email:
+        recipients:
+            - asterios.raptis@web.de
+        on_failure: always
 
-addons:
-  firefox: "latest-esr"
+after_success:
+  - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
+  - bash <(curl -s https://codecov.io/bash)
