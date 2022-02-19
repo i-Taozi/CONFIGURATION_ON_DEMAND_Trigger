@@ -1,34 +1,21 @@
-# Android generated
+out/
 bin/
-gen/
-
-# Ant
-build.xml
-local.properties
-
-# Maven
-target/
-pom.xml.*
-release.properties
-
-# Eclipse
+*/bin/
+.DS_Store
 .classpath
 .project
-.externalToolBuilders/
-
-# IntelliJ
-*.iml
+.settings/
 *.ipr
+*.iml
 *.iws
-.idea/
-out/
-
-# Mac 
-.DS_Store
-
-# Ignore gradle files
-.gradle/
+.metadata
+target
+test-output
+temp-testng*.xml
 build/
-
-# Private
-signing.properties
+gradle-app.setting
+.gradle
+.groovy
+*~
+\#*
+/.metadata/
