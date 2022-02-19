@@ -1,73 +1,159 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
 
-    dependencies {
-        classpath "io.freefair.gradle:lombok-plugin:$gradlePluginLombokVersion"
-        classpath "com.github.ben-manes:gradle-versions-plugin:$gradlePluginVersionsVersion"
-        classpath "gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:$licenseGradlePluginVersion"
-    }
+plugins {
+    id "com.github.hierynomus.license" version "0.14.0" apply false
 }
 
-allprojects {
-    group = "$groupPackage"
-    version = "$projectVersion"
-}
+apply plugin: 'java-library-distribution'
 
-subprojects {
-
-    apply plugin: "signing"
-    apply plugin: "java"
-    apply plugin: "jacoco"
-    apply plugin: "maven-publish"
-    apply plugin: "com.github.ben-manes.versions"
-    apply plugin: "com.github.hierynomus.license"
+allprojects  {
+    
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'com.github.hierynomus.license'
 
     repositories {
         mavenLocal()
-        mavenCentral()
+
+        maven { url "https://repo.maven.apache.org/maven2" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
-
-    dependencies {
-        compileOnly("org.projectlombok:lombok:$lombokVersion")
-        annotationProcessor("org.projectlombok:lombok:$lombokVersion")
-        testImplementation("de.alpharogroup:test-objects:$testObjectsVersion")
-        testImplementation("de.alpharogroup:silly-collections:$sillyCollectionsVersion")
-        testImplementation("de.alpharogroup:silly-beans:$sillyBeansVersion")
-        testImplementation("de.alpharogroup:jobj-contract-verifier:$jobjContractVerifierVersion")
-        testImplementation("org.meanbean:meanbean:$meanbeanVersion")
-        testImplementation("org.testng:testng:$testngVersion")
-    }
-
-    // workhack for license issue #76
-    gradle.startParameter.excludedTaskNames += "licenseMain"
-    gradle.startParameter.excludedTaskNames += "licenseTest"
-
-    sourceCompatibility = "$projectSourceCompatibility"
-
-    javadoc {
-        if (JavaVersion.current().isJava9Compatible()) {
-            options.addBooleanOption("html5", true)
-        }
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-    }
+    
+    group = "org.chorusbdd"
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    version = '3.1.3'
 
     test {
-        useTestNG()
-    }
-
-    jacocoTestReport {
-        reports {
-            xml.enabled true
-            html.enabled true
+        testLogging {
+            // Make sure output from
+            // standard out or error is shown
+            // in Gradle output.
+            showStandardStreams = true
+            events "failed"
+            exceptionFormat "short"
         }
     }
 
-    check.dependsOn jacocoTestReport
+    license {
+        include "**/*.java"
+    }
+
+    jar {
+        manifest {
+            attributes(
+                'Built-By'              : System.properties['user.name'],
+                'Build-Timestamp'       : new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+                'Build-Revision'        : version,
+                'Created-By'            : "Gradle ${gradle.gradleVersion}",
+                'Build-Jdk'             : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                'Build-OS'              : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
+                'Automatic-Module-Name' : "org.chorusbdd." + project.name.replaceAll("chorus-", "chorus.")
+            )
+        }
+    }
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// Signing and Publication to Maven Central
+
+configure([
+        project(':chorus-selenium'),
+        project(':chorus-spring'),
+        project(':chorus-websockets'),
+        project(':chorus-sql')]) {
+
+    println "Configuring extension... $project.name"
+
+    // http://central.sonatype.org/pages/gradle.html#releasing-the-deployment-to-the-central-repository
+    // Apply the plugin to allow gradle to sign jars for Sonatype Maven central distribution
+    // All child projects will be independently signed and released
+    apply plugin: 'signing'
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar, sourcesJar
+    }
+
+    signing {
+        if (signArtifactsForPublication.toBoolean()) {
+            sign configurations.archives
+        }
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name description
+                    packaging 'jar'
+                    // optionally artifactId can be defined here
+                    description mavenDescription
+                    url 'http://www.chorus-bdd.org'
+
+                    scm {
+                        connection 'scm:git:https://github.com/Chorus-bdd/Chorus'
+                        developerConnection 'scm:git:https://github.com/Chorus-bdd/Chorus'
+                        url 'http://github.com/Chorus-bdd/Chorus'
+                    }
+
+                    licenses {
+                        license {
+                            name 'MIT'
+                            url 'https://opensource.org/licenses/MIT'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'nick'
+                            name 'Nick Ebbutt'
+                            email 'admin@chorus-bdd.org'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+apply from: 'dependencies.gradle'
+
+///////////////////////////////////////////////////////////////////////////////////////
+// Distribution
+
+//The dependencies from this project determine which jars get included in the
+//distribution
+dependencies {
+    compile project ('chorus')
+    compile project ('chorus-spring')
+    compile project ('chorus-selenium')
+    compile project ('chorus-websockets')
+    compile project ('chorus-sql')
+}
+
+distributions {
+    main{
+        baseName = 'chorus'
+    }
+}
+

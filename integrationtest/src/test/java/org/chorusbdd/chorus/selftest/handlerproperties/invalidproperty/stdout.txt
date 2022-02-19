@@ -1,0 +1,16 @@
+Feature: Invalid Properties                                                                          
+Chorus --> INFO    - Running feature from file: src/test/java/org/chorusbdd/chorus/selftest/handlerproperties/invalidproperty/invalidproperty.feature
+Chorus --> INFO    - No default handler found for Feature: (Invalid Properties), will use built-in handlers and Uses: statements
+  Scenario: Start a Single Java Process
+Chorus --> INFO    - Processing scenario: Start a Single Java Process
+Chorus --> WARN    - A property 'myinvalidprop' was provided but no such property is supported
+Chorus --> INFO    - About to run process:  <system specific process details replaced>
+    Given I start a config1 process                                                          PASSED  
+Chorus --> WARN    - A property 'myinvalidprop' was provided but no such property is supported
+    And I connect to the config1 process                                                     FAILED  Invalid remoting config 'config1'. Validation method failed: [host property must be set] (ConfigurableManager:linenumber)-ChorusException
+    Then I can call a remote method                                                          SKIPPED 
+
+
+Features  (total:1) (passed:0) (failed:1)
+Scenarios (total:1) (passed:0) (failed:1)
+Steps     (total:3) (passed:1) (failed:1) (undefined:0) (pending:0) (skipped:1)
