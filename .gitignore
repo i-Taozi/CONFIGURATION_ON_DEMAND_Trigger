@@ -1,39 +1,63 @@
-# built application files
-*.apk
-*.ap_
+# Just to try and prevent some noob disasters.
+# Use git add -f foo.jar to ignore this ignore list
 
-# files for the dex VM
-*.dex
+# generated release files
+*.exe
+*.[gx]z
+*.bz2
+*.[rwjt]ar
+*.sig
+*.su[d23]
+*.deb
+*.zip
+*.torrent
 
-# Java class files
+*~
+web-fragment.xml
+web-out.xml
+*.out
+
+# Temporary/build dirs
+build/
+pkg-temp/
+classes/
+dist/
+/installer/resources/locale/mo
+/tmp
+/apps/jetty/jettylib
+*_jsp.java
 *.class
 
-# generated files
-bin/
-gen/
+# Debian-related
+/debian/copyright
+/debian/changelog
+.pc/
 
-# Local configuration file (sdk path, etc)
-local.properties
+# Build property overrides
+/override.properties
 
-# Intellij project files
+# Reporting
+*.fba
+sloccount.sc
+/reports/
+
+# Don't allow patches
+*.(diff|patch)
+
+# but allow debian/patches
+!/debian/patches/*.(patch|diff)
+
+# IDE project files
+# Eclipse
+.classpath
+.project
+.settings/
+# IDEA
 *.iml
-*.ipr
-*.iws
-.idea/
+.idea
 
-# NDK build artifacts for sdk-native 
-sdk-native/src/cpp_precompilation/libs 
-sdk-native/src/cpp_precompilation/obj
-
-# Other
-
+# Gradle
 .gradle
-.DS_Store
-/build
-sdknative/build/generated/
-sdknative/build/
-app-native/.externalNativeBuild/cmake/debug/
-app-native/.externalNativeBuild/cmake/release/
-upload-plugin/build/pluginUnderTestMetadata/plugin-under-test-metadata.properties
-upload-plugin/build/
-app-native/.cxx/
+
+# TODO: why does this file appear?
+apps/routerconsole/jsp/favicon.ico
