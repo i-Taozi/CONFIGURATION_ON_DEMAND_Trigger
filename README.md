@@ -1,85 +1,31 @@
-# Mirakel – Efficient Simple Task Management for the best Devs of the universe
+Archaius
+=====
+[![NetflixOSS Lifecycle](https://img.shields.io/osslifecycle/Netflix/archaius.svg)]()
 
-It was a great journey to build Mirakel and experience such great support from our community (YOU!), but we are not able to continue the development any further 
+[![Build Status](https://netflixoss.ci.cloudbees.com/buildStatus/icon?job=archaius-master)](https://netflixoss.ci.cloudbees.com/job/archaius-master/)
 
-**We do not see any way to support Mirakel any further and am searching for a new maintainer. We would be more than happy if Mirakel could be reborn and of course we would also provide help and guidance for new maintainers if needed. If you are interested, send us an e-mail to mirakel@azapps.de**
+Features
+-------
 
-Best,
-Georg and Anatoly
+Archaius includes a set of configuration management APIs used by Netflix. It provides the following functionality:
 
-[![Join the chat at https://gitter.im/MirakelX/mirakel-android](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MirakelX/mirakel-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/MirakelX/mirakel-android.png)](https://travis-ci.org/MirakelX/mirakel-android)
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/mirakel/localized.png)](https://crowdin.com/project/mirakel)
+* Dynamic, Typed Properties
+* High throughput and Thread Safe Configuration operations
+* A polling framework that allows obtaining property changes of a Configuration Source
+* A Callback mechanism that gets invoked on effective/"winning" property mutations (in the ordered hierarchy of Configurations)
+* A JMX MBean that can be accessed via JConsole to inspect and invoke operations on properties
+* Out of the box, Composite Configurations (With ordered hierarchy) for applications (and most web applications willing to use convention based property file locations)
+* Implementations of dynamic configuration sources for URLs, JDBC and Amazon DynamoDB
+* Scala dynamic property wrappers
 
-Become the most efficient & effective Dev with this task list for the greatest developers in the universe. Get your things done with a strictly organised workflow.
-If you want to enhance or upgrade our app with another feature or better service you can become part of the Mirakel Klub and meet some of the best Devs in the Universe.
+Documentation
+--------------
+Please see [wiki](https://github.com/Netflix/archaius/wiki) for detail documentation.
 
-* Create tasks super fast with keywords like “today battlefield epic win”
-* “Today Home cleaning” ~ “Date List activity”
-* Clear Whats-Next Overview
-* Smart Prioritisation by Today, This Week, Overdue and All
+Origin
+------
+The code name for the project comes from an endangered species of Chameleons. We chose [Archaius](http://en.wikipedia.org/wiki/Archaius), as Chameleons are known for changing their color (a property) based on its environment and situation. This project was borne out of a strong desire to use dynamic property changes to effect runtime behaviors based on specific contexts.
 
-Geek Informations
-
-* Create Sub Tasks
-* Add files, audio notes, documents, photos
-* Material UI
-* Open Source
-* Free Software
-* Hashtags/ Keywords for tasks
-* Fine granulated Prioritisation
-* 19+ Languages
-* No Gamification nonsense
-
-Upcoming
-
-* Super secure cloud sync and web interface
-* Location Based Reminders
-* Your contributions (e.g. languages)
-* Become Google independent with task warrior sync
-* Sync with CalDAV
-
-
-# Beta
-
-Please help us testing our app by joining our [Google+-Community](https://plus.google.com/u/0/communities/110640831388790835840) and testing our Beta releases! Or just go to our **[releases-page](http://mirakel.azapps.de/releases.html)**
-
-# Contribute
-
-## Bug reports / Feature requests
-
-Please use our [issue tracker](https://github.com/MirakelX/mirakel-android/issues/) to submit Bug reports or feature requests. You should first look, if someone else has already posted your problem.
-
-Please open for **every** bug report or feature request a new issue so we can handle them more easy.
-
-## Development
-
-By helping us to improve Mirakel you will become a Member of Mirakel Klub and meet some of the best devs in the universe.
-
-Getting started with development is very easy. We wrote a small tutorial here: [Development Tutorial](https://github.com/MirakelX/mirakel-android/wiki/Development-Tutorial)
-
-## Translations
-
-Please help us to translate the app: http://crowdin.net/project/mirakel. If your language is not listed there, just write us an e-mail.
-
-# Contact
-
-Don't hesitate to contact us, just write us an e-mail to mirakel@azapps.de.
-
-# License
-
-Copyright (c) 2013-2015 Anatolij Zelenin, Georg Semmler
-
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+User Group
+----------
+The google group for Archaius users is https://groups.google.com/forum/#!forum/achaius-users. Email address for the group is achaius-users@googlegroups.com.
