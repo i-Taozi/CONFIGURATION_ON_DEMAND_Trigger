@@ -1,28 +1,17 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.10'
+}
+
 buildscript {
     repositories {
-        mavenCentral()
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
-        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.+'
-    }
-}
-
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
-allprojects {
-    version = VERSION_NAME
-    group = GROUP
-
-    repositories {
         mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     }
 }
-
-apply plugin: 'android-reporting'
