@@ -1,24 +1,31 @@
-# built application files
-#.apk
-*.ap_
+# Mac crap
+.DS_Store
+.java-version
 
-# files for the dex VM
-*.dex
-
-# Java class files
-*.class
-
-# generated files
-/build
-/playerSDK/build
-/kalturaPlay/build
-/googlemediaframework/build
-/exoPlayerLib/build
-
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Intellij project files
-*.iml
+# intellij
 .idea
+*.iml
+*.ipr
+*.iws
+
+# eclipse
+.settings
+.project
+.classpath
+target
+
+out
+javadocs
+build
+classes
 .gradle
+
+# configuration
+local.properties
+/.nb-gradle/
+
+# VS Code
+.browse.VC.db
+
+# NetBeans
+.nb-gradle-properties
