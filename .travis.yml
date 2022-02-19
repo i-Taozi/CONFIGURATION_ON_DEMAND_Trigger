@@ -1,31 +1,21 @@
 language: android
+sudo: false
+jdk: openjdk7
 android:
   components:
-      # The BuildTools version used by your project
-      - build-tools-22.0.1
-      # The SDK version used to compile your project
-      - android-22
-      # Additional components
-      - extra-android-m2repository
+    - tools
+    - build-tools-23.0.2
+    - extra-android-support
+    - extra-android-m2repository
+    - android-23
+script:
+  - ./gradlew assembledebug  
 
-
-branches:
-  only:
-    - master
-    - dev
-
-notifications:
-  email: false
-
-before_install:
-
-  # for gradle output style
-  - export TERM=dumb
-
-  # environment info
-  - ./gradlew -v
-  - uname -a
-
-# Let's try to build...
-#install: ./gradlew clean build
-script: ./gradlew check
+deploy:
+    provider: releases
+    skip_cleanup: true
+    api_key: "Wk41dTj7MJTw1bZA3xYMY4Bc1AbTg+x0y3B61ncCl0R60JKF0JTSEbRWssaoKl03nME1wSkQqUEH/4ytFXlr/7hFuOqluG0GnA3RzJEcjlA4KlbVpvLwtkG1jAN+88vu5nHTYQfZmAdryp3RsdjJXbUeIdH/Zg6cS6wJ4U7FYCM="
+    file:  "app/build/outputs/apk/app-debug.apk"
+    on:
+      repo: grzegorznittner/chanu
+      tags: true
