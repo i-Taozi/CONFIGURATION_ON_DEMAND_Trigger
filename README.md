@@ -1,52 +1,81 @@
-Android USB MIDI Driver
-====
-[![Build Status](https://travis-ci.com/kshoji/USB-MIDI-Driver.svg?branch=develop)](https://travis-ci.com/kshoji/USB-MIDI-Driver)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-USB%20MIDI%20Driver-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/511)
 
-USB MIDI Driver using Android USB Host API
+VWorkflows
+==============
 
-- No root privilege needed.
-- Supports the standard USB MIDI devices; like sequencers, or instruments.
-- Supports some non-standard USB MIDI (but protocol is compatible with USB MIDI) devices.
-    - YAMAHA, Roland, MOTU, or other makers' devices listed on [device_filter.xml](https://github.com/kshoji/USB-MIDI-Driver/blob/master/MIDIDriver/res/xml/device_filter.xml) can be connected.
-- Supports multiple device connections.
-- Has `javax.sound.midi` compatible classes.
-    - See the [javax.sound.midi Documents](https://github.com/kshoji/USB-MIDI-Driver/wiki/javax.sound.midi-porting-for-Android).
+[![Build Status](https://travis-ci.org/miho/VWorkflows.svg?branch=master)](https://travis-ci.org/miho/VWorkflows) 
+<a href="https://foojay.io/today/works-with-openjdk">
+   <img align="right" 
+        src="https://github.com/foojayio/badges/raw/main/works_with_openjdk/Works-with-OpenJDK.png"   
+        width="100">
+</a>
 
-Requirement
-====
-- Android : OS version 3.1(API Level 12) or higher, and have an USB host port.
-    - The android Linux kernel must support USB MIDI devices. Some Android device recognizes only USB-HID and USB-MSD by kernel configurations.
-- USB MIDI (compatible) device
+<br>
 
-the optional thing:
+Interactive flow/graph visualization for building domain specific visual programming environments. Provides UI bindings for JavaFX.
 
-- The self powered USB hub (if want to connect multiple USB MIDI devices).
-- USB OTG cable (if the Android device has no standard USB-A port).
-- USB MIDI <--> Lagacy MIDI(MIDI 1.0) converter cable (if want to connect with legacy MIDI instruments).
+<img src="https://farm2.staticflickr.com/1453/26419281842_799e5d458a_k.jpg">
 
-Repository Overview
-====
-- Library Project : `MIDIDriver`
-    - The driver for connecting an USB MIDI device.
+<img src="https://farm2.staticflickr.com/1445/26511687665_051a5bf7d9_k.jpg">
 
-- Sample Project : `MIDIDriverSample`
-    - The sample implementation of the synthesizer / MIDI event logger.
-    - Pre-compiled sample project is available on [Google Play Market](https://play.google.com/store/apps/details?id=jp.kshoji.driver.midi.sample).
+See [http://mihosoft.eu/?p=523](http://mihosoft.eu/?p=523) and [http://mihosoft.eu/?p=564](http://mihosoft.eu/?p=564) 
+for an introduction.
 
-Library Project Usages
-====
+Join the [Developer Group](https://groups.google.com/forum/#!forum/vrl-developers) if you'd like to contribute.
 
-See the [project wiki](https://github.com/kshoji/USB-MIDI-Driver/wiki) for the library usages.
+## Maven Coordinates
 
-FAQ
-----
-- What is the 'cable' argument of `"onMidi..."` or `"sendMidi..."` method?
-    - A single USB MIDI endpoint has multiple "virtual MIDI cables". 
-    It's used for increasing the midi channels. The cable number's range is 0 to 15.
-- The application doesn't detect the device even if the USB MIDI device connected.
-    - See the [Trouble shooting](https://github.com/kshoji/USB-MIDI-Driver/wiki/TroubleShooting-on-connecting-an-USB-MIDI-device) documents.
+VWorkflows-Core:
 
-License
-====
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[![Javadocs](https://www.javadoc.io/badge/eu.mihosoft.vrl.workflow/vworkflows-core.svg?label=javadoc-core)](https://www.javadoc.io/doc/eu.mihosoft.vrl.workflow/vworkflows-core)
+
+
+
+
+    <dependency>
+      <groupId>eu.mihosoft.vrl.workflow</groupId>
+      <artifactId>vworkflows-core</artifactId>
+      <version>0.2.3</version>
+    </dependency>
+
+VWorkflows-FX:
+
+[![Javadocs](https://www.javadoc.io/badge/eu.mihosoft.vrl.workflow/vworkflows-fx.svg?label=javadoc-fx)](https://www.javadoc.io/doc/eu.mihosoft.vrl.workflow/vworkflows-fx)
+
+
+Replace version with the desired version (see above for latest version).
+
+    <dependency>
+      <groupId>eu.mihosoft.vrl.workflow</groupId>
+      <artifactId>vworkflows-fx</artifactId>
+      <version>0.2.3</version>
+    </dependency>
+
+## How To Build
+
+### Reqirements
+
+- Java >= 1.8.0_60
+- Internet connection (other dependencies are downloaded automatically)
+- IDE: [Gradle](http://www.gradle.org/) Plugin (not necessary for command line usage)
+
+### IDE
+
+Open the `VWorkflows` [Gradle](http://www.gradle.org/) project in your favourite IDE (tested with NetBeans 8.1) and build it
+by calling the `assemble` task.
+
+### Command Line
+
+Navigate to the [Gradle](http://www.gradle.org/) project (e.g., `path/to/VWorkflows`) and enter the following command
+
+#### Bash (Linux/OS X/Cygwin/other Unix-like OS)
+
+    ./gradlew assemble
+    
+#### Windows (CMD)
+
+    gradlew assemble
+    
+## Test It
+
+Besides the tests defined in `VWorkflows-Core` (`test` task) it is also possible to run a graphical demo that comes with 
+`VWorkflows-Demo` subproject. To run it call the `run` task.
