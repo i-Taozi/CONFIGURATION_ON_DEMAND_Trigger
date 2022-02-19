@@ -1,137 +1,102 @@
-Google-Directions-Android
-=========================
- [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.jd-alexander/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.jd-alexander/library/) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Google--Directions--Android-green.svg?style=flat)](https://android-arsenal.com/details/1/2090) [![Build Status](https://travis-ci.org/jd-alexander/Google-Directions-Android.svg?branch=master)](https://travis-ci.org/jd-alexander/Google-Directions-Android)
+JediTerm
+========
 
-This project allows you to calculate the direction between two locations and display the route on a Google Map using the Google Directions API - This project isn't actively been maintained. 
+[![official JetBrains project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
-
-
-![Example Image][1]
-
-Sample
-------------
-
-The sample makes use of the Google Places API for Android in order to provide a real life example of how the library can be used.[You can check it out on the store.](https://play.google.com/store/apps/details?id=com.directions.sample)
-
-Download
---------
+[![Build Status](https://travis-ci.org/JetBrains/jediterm.png?branch=master)](https://travis-ci.org/JetBrains/jediterm)
 
 
-Grab via Maven:
-```xml
-<dependency>
-  <groupId>com.github.jd-alexander</groupId>
-  <artifactId>library</artifactId>
-  <version>1.1.0</version>
-</dependency>
-```
-or Gradle:
-```groovy
-    compile 'com.github.jd-alexander:library:1.1.0'
-```
+The main purpose of the project is to provide a pure Java terminal widget that can be easily embedded 
+into an IDE.
+It supports terminal sessions both for SSH connections and local PTY on Mac OSX, Linux and Windows.
 
-Usage
+
+The library is used by JetBrains IDEs like PyCharm, IDEA, PhpStorm, WebStorm, AppCode, CLion, and Rider.
+
+Since version 2.5 there is a standalone version of the JediTerm terminal, provided as Mac OSX distribution.
+
+
+The name JediTerm origins from J(from `Java`) + edi(reversed `IDE`) + Term(obviously from `terminal`).
+Also the word Jedi itself gives some confidence and hope in the Universe of thousands of different terminal implementations.
+
+
+Run
+-------
+
+To run the standalone JediTerm terminal from sources just execute _jediterm.sh_ or _jediterm.bat_.
+Or use the binary distribution from the [Releases](https://github.com/JetBrains/jediterm/releases/) page.
+
+
+
+Build
 -----
 
-To calculate the route you simply instantiate a Routing object and trigger the execute function.
+Gradle is used to build this project. The project consists of 4 sub-projects:
+* **terminal**
+
+    The core library that provides VT100 compatible terminal emulator and Java Swing based implementation of terminal panel UI.
+
+* **ssh**
+
+    The jediterm-ssh.jar library that provides, using the Jsch library, a terminal for remote SSH terminal sessions.
+
+* **pty**
+
+    The jediterm-pty.jar library that, by using the [Pty4J](https://github.com/traff/pty4j) library, enables a terminal for local PTY terminal sessions.
+
+* **JediTerm**
+
+    The standalone version of the JediTerm terminal distributed as a .dmg for Mac OSX.
 
 
-*You can execute the task in this manner. ( See the example for more details on the exact implementation)
-
-
-
-``` java
-
-        Routing routing = new Routing.Builder()
-                    .travelMode(/* Travel Mode */)
-                    .withListener(/* Listener that delivers routing results.*/)
-                    .waypoints(/*waypoints*/)
-                    .key(/*api key for quota management*/)
-                    .build();
-        routing.execute();
-        
-```
-
-
-
-actual code 
-``` java
-        start = new LatLng(18.015365, -77.499382);
-        waypoint= new LatLng(18.01455, -77.499333);
-        end = new LatLng(18.012590, -77.500659);
-        
-        Routing routing = new Routing.Builder()
-                    .travelMode(Routing.TravelMode.WALKING)
-                    .withListener(this)
-                    .waypoints(start, waypoint, end)
-                    .build();
-        routing.execute();
-        
-        .....
-        
-       @Override
-    public void onRoutingSuccess(ArrayList<Route> route, int shortestRouteIndex)
-    {
-       //code to add route to map here. See sample app for more details.
-    }
-```
-
-Demostration
-------------
-*  https://www.youtube.com/watch?v=58AxNh2cWRU
-
-Demo App
-------------
-*  https://github.com/hamza-ameer/GoogleMaps-Find-Routes/tree/Updated
-
-
-Known Issues
-------------
-*  If the AutoComplete TextView/Map of the sample app isnt working then probably the API key hasn't been set in the manifest.
-
-* If the route is not being displayed then type "Routing" in your log cat to see the potential error messages from the library.
-
-
-Contribution
-------------
-
-Please fork  repository and contribute using pull requests.
-
-Any contributions, large or small, major features, bug fixes, additional language translations, unit/integration tests are welcomed and appreciated but will be thoroughly reviewed and discussed.
-
-Contributors
-------------
-*   [Cyrille Berliat](https://github.com/licryle)
-*   [Felipe Duarte](https://github.com/fcduarte)
-*   [Kedar Sarmalkar](https://github.com/ksarmalkar)
-*   [Fernando Gil](https://github.com/fgil)
-*   [Furkan Tektas](https://github.com/furkantektas)
-*   [João Pedro Nardari dos Santos](https://github.com/joaopedronardari)
-*   [Hesham Saeed](https://github.com/HeshamSaeed)
-
-License
+Features
 --------
-
-    Copyright 2016 Joel Dean
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+* Ssh using JSch from jcraft.org
+* Local terminal for Unix, Mac and Windows using [Pty4J](https://github.com/traff/pty4j)
+* Xterm emulation - passes most of tests from vttest
+* Xterm 256 colours
+* Scrolling
+* Copy/Paste
+* Mouse support
+* Terminal resizing from client or server side
+* Terminal tabs
 
 
 
+Authors
+-------
+Dmitry Trofimov <dmitry.trofimov@jetbrains.com>, Clément Poulain
 
 
 
-[1]:http://i57.tinypic.com/2m7j04x.png
+Links
+-----
+ * Terminal protocol description: http://invisible-island.net/xterm/ctlseqs/ctlseqs.html
+ * Terminal Character Set Terminology and Mechanics: http://www.columbia.edu/kermit/k95manual/iso2022.html
+ * VT420 Programmer Reference Manual: http://manx.classiccmp.org/collections/mds-199909/cd3/term/vt420rm2.pdf
+ * Pty4J library: https://github.com/traff/pty4j
+ * JSch library: http://www.jcraft.com/jsch
+ * UTF8 Demo: http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt
+ * Control sequences visualization: http://www.gnu.org/software/teseq/
+ * Terminal protocol tests: http://invisible-island.net/vttest/
 
 
 
+Open Source Origin and History
+------
+The initial version of the JediTerm was a reworked terminal emulator Gritty, which was in it's own turn a reworked JCTerm 
+terminal implementation. Now there is nothing in the source code left from Gritty and JCTerm. Everything was 
+rewritten from scratch. A lot of new features were added.
+
+Character sets designation and mapping implementation is based on
+respective classes from jVT220 (https://github.com/jawi/jVT220, Apache 2.0 licensed) by J.W. Janssen.
+
+
+Standalone distribution relies heavily on customized Swing UI widgets taken from IntelliJ Community platform repository
+(https://github.com/JetBrains/intellij-community) by JetBrains.
+
+
+Licenses
+-------
+JediTerm is dual-licensed under both the LGPLv3 (found in the LICENSE-LGPLv3.txt file in the root directory) and Apache 2.0 License (found in the LICENSE-APACHE-2.0.txt file in the root directory). 
+You may select, at your option, one of the above-listed licenses.

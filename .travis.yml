@@ -1,9 +1,5 @@
-before_install:
- - chmod +x gradlew
-
-language: android
-android:
-  components:
-    - build-tools-22.0.1
-    - android-22
-    - extra
+language: java
+jdk:
+  - oraclejdk11
+install: true
+script: ./gradlew --settings-file travis-settings.gradle test
