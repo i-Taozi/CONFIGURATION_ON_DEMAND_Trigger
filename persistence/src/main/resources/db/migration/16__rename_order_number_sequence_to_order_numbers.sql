@@ -1,1 +1,0 @@
-alter table order_number_sequence rename to order_numbers;

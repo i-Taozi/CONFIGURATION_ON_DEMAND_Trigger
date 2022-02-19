@@ -1,1 +1,0 @@
-alter table payments add payment_type varchar(64) not null;
