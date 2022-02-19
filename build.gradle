@@ -1,29 +1,40 @@
 buildscript {
     repositories { jcenter() }
     dependencies {
-        classpath 'be.insaneprogramming.gradle:animalsniffer-gradle-plugin:1.4.0'
+        classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:2.2.0'
     }
 }
 
 plugins {
-    id 'nebula.netflixoss' version '2.2.10'
+    id 'nebula.netflixoss' version '2.2.9'
 }
 
 ext {
-    githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
+    githubProjectName = "karyon"
 }
 
 subprojects {
     apply plugin: 'nebula.netflixoss'
+    apply plugin: 'groovy'
+    apply plugin: 'nebula.provided-base'
+    apply plugin: "jacoco"
 
-    repositories { 
+    group = "com.netflix.karyon"
+
+    repositories {
         jcenter()
     }
-    apply from: rootProject.file('dagger.gradle')
-    group = "com.netflix.${githubProjectName}" // TEMPLATE: Set to organization of project
-    apply plugin: 'be.insaneprogramming.gradle.animalsniffer'
 
-    animalsniffer { // Don't use apis that may not be available on Android
-        signature = "org.codehaus.mojo.signature:java16:+@signature"
+    dependencies {
+        compile 'org.slf4j:slf4j-api:1.7.6'
+        testCompile 'junit:junit:4.10'
     }
+
+    eclipse {
+        classpath {
+            downloadSources = true
+            downloadJavadoc = true
+        }
+    }
+
 }
