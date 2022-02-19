@@ -1,18 +1,39 @@
-target
-logs
+# built application files
+*.apk
+*.ap_
 
-/chorus-1.3.8.tar.gz
-/chorus-1.3.8.zip
-/releaseScript.sh
-/changelist.html
-/.idea/
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Intellij project files
 *.iml
-*.log
-.DS_Store
+*.ipr
+*.iws
+.idea/
+
+# NDK build artifacts for sdk-native 
+sdk-native/src/cpp_precompilation/libs 
+sdk-native/src/cpp_precompilation/obj
+
+# Other
+
 .gradle
-build
-/dependencies.txt
-/classes/
-out
-/chorus-nick.ipr
-/chorus-nick.iws
+.DS_Store
+/build
+sdknative/build/generated/
+sdknative/build/
+app-native/.externalNativeBuild/cmake/debug/
+app-native/.externalNativeBuild/cmake/release/
+upload-plugin/build/pluginUnderTestMetadata/plugin-under-test-metadata.properties
+upload-plugin/build/
+app-native/.cxx/
