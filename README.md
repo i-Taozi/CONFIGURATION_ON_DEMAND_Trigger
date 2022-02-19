@@ -1,81 +1,85 @@
+# Mirakel – Efficient Simple Task Management for the best Devs of the universe
 
-VWorkflows
-==============
+It was a great journey to build Mirakel and experience such great support from our community (YOU!), but we are not able to continue the development any further 
 
-[![Build Status](https://travis-ci.org/miho/VWorkflows.svg?branch=master)](https://travis-ci.org/miho/VWorkflows) 
-<a href="https://foojay.io/today/works-with-openjdk">
-   <img align="right" 
-        src="https://github.com/foojayio/badges/raw/main/works_with_openjdk/Works-with-OpenJDK.png"   
-        width="100">
-</a>
+**We do not see any way to support Mirakel any further and am searching for a new maintainer. We would be more than happy if Mirakel could be reborn and of course we would also provide help and guidance for new maintainers if needed. If you are interested, send us an e-mail to mirakel@azapps.de**
 
-<br>
+Best,
+Georg and Anatoly
 
-Interactive flow/graph visualization for building domain specific visual programming environments. Provides UI bindings for JavaFX.
+[![Join the chat at https://gitter.im/MirakelX/mirakel-android](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MirakelX/mirakel-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/MirakelX/mirakel-android.png)](https://travis-ci.org/MirakelX/mirakel-android)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/mirakel/localized.png)](https://crowdin.com/project/mirakel)
 
-<img src="https://farm2.staticflickr.com/1453/26419281842_799e5d458a_k.jpg">
+Become the most efficient & effective Dev with this task list for the greatest developers in the universe. Get your things done with a strictly organised workflow.
+If you want to enhance or upgrade our app with another feature or better service you can become part of the Mirakel Klub and meet some of the best Devs in the Universe.
 
-<img src="https://farm2.staticflickr.com/1445/26511687665_051a5bf7d9_k.jpg">
+* Create tasks super fast with keywords like “today battlefield epic win”
+* “Today Home cleaning” ~ “Date List activity”
+* Clear Whats-Next Overview
+* Smart Prioritisation by Today, This Week, Overdue and All
 
-See [http://mihosoft.eu/?p=523](http://mihosoft.eu/?p=523) and [http://mihosoft.eu/?p=564](http://mihosoft.eu/?p=564) 
-for an introduction.
+Geek Informations
 
-Join the [Developer Group](https://groups.google.com/forum/#!forum/vrl-developers) if you'd like to contribute.
+* Create Sub Tasks
+* Add files, audio notes, documents, photos
+* Material UI
+* Open Source
+* Free Software
+* Hashtags/ Keywords for tasks
+* Fine granulated Prioritisation
+* 19+ Languages
+* No Gamification nonsense
 
-## Maven Coordinates
+Upcoming
 
-VWorkflows-Core:
-
-[![Javadocs](https://www.javadoc.io/badge/eu.mihosoft.vrl.workflow/vworkflows-core.svg?label=javadoc-core)](https://www.javadoc.io/doc/eu.mihosoft.vrl.workflow/vworkflows-core)
-
-
-
-
-    <dependency>
-      <groupId>eu.mihosoft.vrl.workflow</groupId>
-      <artifactId>vworkflows-core</artifactId>
-      <version>0.2.3</version>
-    </dependency>
-
-VWorkflows-FX:
-
-[![Javadocs](https://www.javadoc.io/badge/eu.mihosoft.vrl.workflow/vworkflows-fx.svg?label=javadoc-fx)](https://www.javadoc.io/doc/eu.mihosoft.vrl.workflow/vworkflows-fx)
+* Super secure cloud sync and web interface
+* Location Based Reminders
+* Your contributions (e.g. languages)
+* Become Google independent with task warrior sync
+* Sync with CalDAV
 
 
-Replace version with the desired version (see above for latest version).
+# Beta
 
-    <dependency>
-      <groupId>eu.mihosoft.vrl.workflow</groupId>
-      <artifactId>vworkflows-fx</artifactId>
-      <version>0.2.3</version>
-    </dependency>
+Please help us testing our app by joining our [Google+-Community](https://plus.google.com/u/0/communities/110640831388790835840) and testing our Beta releases! Or just go to our **[releases-page](http://mirakel.azapps.de/releases.html)**
 
-## How To Build
+# Contribute
 
-### Reqirements
+## Bug reports / Feature requests
 
-- Java >= 1.8.0_60
-- Internet connection (other dependencies are downloaded automatically)
-- IDE: [Gradle](http://www.gradle.org/) Plugin (not necessary for command line usage)
+Please use our [issue tracker](https://github.com/MirakelX/mirakel-android/issues/) to submit Bug reports or feature requests. You should first look, if someone else has already posted your problem.
 
-### IDE
+Please open for **every** bug report or feature request a new issue so we can handle them more easy.
 
-Open the `VWorkflows` [Gradle](http://www.gradle.org/) project in your favourite IDE (tested with NetBeans 8.1) and build it
-by calling the `assemble` task.
+## Development
 
-### Command Line
+By helping us to improve Mirakel you will become a Member of Mirakel Klub and meet some of the best devs in the universe.
 
-Navigate to the [Gradle](http://www.gradle.org/) project (e.g., `path/to/VWorkflows`) and enter the following command
+Getting started with development is very easy. We wrote a small tutorial here: [Development Tutorial](https://github.com/MirakelX/mirakel-android/wiki/Development-Tutorial)
 
-#### Bash (Linux/OS X/Cygwin/other Unix-like OS)
+## Translations
 
-    ./gradlew assemble
-    
-#### Windows (CMD)
+Please help us to translate the app: http://crowdin.net/project/mirakel. If your language is not listed there, just write us an e-mail.
 
-    gradlew assemble
-    
-## Test It
+# Contact
 
-Besides the tests defined in `VWorkflows-Core` (`test` task) it is also possible to run a graphical demo that comes with 
-`VWorkflows-Demo` subproject. To run it call the `run` task.
+Don't hesitate to contact us, just write us an e-mail to mirakel@azapps.de.
+
+# License
+
+Copyright (c) 2013-2015 Anatolij Zelenin, Georg Semmler
+
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
