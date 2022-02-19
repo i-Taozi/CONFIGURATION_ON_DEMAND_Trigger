@@ -1,14 +1,11 @@
 language: java
 jdk:
-- openjdk8
+- oraclejdk7
 install: ./installViaTravis.sh
 script: ./buildViaTravis.sh
 env:
   global:
-  - secure: WvvNvknDnFrqQc9Dd/yDXvmE/C7nv++0UD+x5RwgyDOAVNqbKb9+hE458o7iO5GqcDn7t+xpqpCVmtl/I+ddAe3Mrju1LZ9wV+M3g3xMgKJRfn1Ny6g5JRIayoWp3BChFRIBRkA20CN7PeMyc2X81yBD8MY6gJWElUAg+JHWJhM=
-  - secure: LmNKk2cYzePjGZU8rkURiqvlUbJnL3zpQZZRIUzjGwx577H4VVr9CNNSm8zYnN+HOPn5HjQvaNovv3yi4ijbUaUaxPa5ZFho67HAhm6jzOMuk/oAFnELFacle02trkQYIlXAdG0Vj7RMBmfQ1WpIoxfAuGUcToSUFeqP2Skzspk=
-  - secure: s5ZJFQNozCsrFY2KTUuabi1HxsCniO5DbjV76/ham2UshONKzIqXkMlF/d6MPbiqdaHuT0Le6kwRMQiIauQes1b755sKcBBxDK1l1DX6P6aMxvKhtc7cO0f+xvGDpkP6hfLhKqpKT1XmeTW8DOaeCevQc62XgGWfSG/SfooEyNw=
-  - secure: pmAEB7RQmD9eseKrfV8veMHgfqZP2b10Rz0qBOEcl+g/1fV/Zhav4ePdww2XhDBKGx7vKb10luJjrodchsAoDTbAppMgHc4f8dMctQB4Bd0JLogY2O6NuU+4P/aG26zrKb18rUPlpuWMLDsAPTY/HkPQP00P1CGaqSgrYRO4Nx4=
-cache:
-  directories:
-  - $HOME/.gradle/caches
+  - secure: TndmkHMNpM2RsrGC+nJfJLd5vcrn0krifi/ILLJBFiAceGFFNb7QQ8B/dgW/fETAmBfwT2YqNe2zXLDTEAuc5Vij7/RksXusgBuFJDkMQp+XbMLpva+FnHtdPtCYSPm/r/Vp/FaFXFp1Y0m0wRLo/C6PGTv5VnmdkmPFBls2o5o=
+  - secure: itRjB+oK2KMa6EqSebJR8Yxq8U1q9uPIIZjo66usqYB3m1inYi5BAYDrRgriKAy7oLs6tMei9Sz6sejYcCEfEehbNUH1U/a8OaX+L3j6xSRbYHOLmAxDxWkQeWq4713RhgT/zN0n1KneP0Rcs9Ff23E7Fu77uBN9QYBTx+Ip5wM=
+  - secure: mhYqGLbfUt0WA/qL+Tm4EbAE8DYbLWpuFdk2m0CTZmSPt24Hlg0Wl1xk32zwav+hdlXLkoNO5FPoUA+5JHTs0fe0Ibe82+d3o4j87ovpUr1US6s+6nd2NqJYb2vGfMI5BB+92vnPqrno7/gI4PPHiV6uoKSmiQZWt75y92wqbTQ=
+  - secure: Ln16Jt+I9SnC0JArt4U1pAJHKUxRtOvOVrDrF3N9gwIpFoqYszDAU8j+VC0Rt1ICiwpGuCRkzFPAQ4ou1u5g8fq/yELPcqM8YwrS0m+uHld0qfD+1ERnvU73bKUoaJXp8Uw5/fIiY5a2mUsE+adWhGUrTfqkTnpzGkh1WBRWTp8=

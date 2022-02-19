@@ -1,5 +1,3 @@
-archaius-core/MySiteConfiguration/
-
 # Compiled source #
 ###################
 *.com
@@ -41,12 +39,16 @@ Thumbs.db
 # Gradle Files #
 ################
 .gradle
+local.properties
 
 # Build output directies
 /target
-*/target
-/build
+**/test-output
+**/target
+**/bin
+build
 */build
+.m2
 
 # IntelliJ specific files/directories
 out
@@ -61,7 +63,8 @@ atlassian-ide-plugin.xml
 .project
 .settings
 .metadata
-*/bin
+.factorypath
+.generated
 
 # NetBeans specific files/directories
 .nbattrs
