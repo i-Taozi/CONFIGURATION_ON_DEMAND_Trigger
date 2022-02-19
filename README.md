@@ -1,57 +1,118 @@
-[![Build Status](https://travis-ci.org/eyeem/chips-android.png)](https://travis-ci.org/eyeem/chips-android)
+# Card Library
+Travis master: [![Build Status](https://travis-ci.org/gabrielemariotti/cardslib.svg?branch=master)](https://travis-ci.org/gabrielemariotti/cardslib)
+Travis dev: [![Build Status](https://travis-ci.org/gabrielemariotti/cardslib.svg?branch=dev)](https://travis-ci.org/gabrielemariotti/cardslib)
 
-Chips library from EyeEm
-=================
 
-EyeEm style bubbles (a.k.a. chips).
+**Card Library** provides an easy way to display a UI Card using the **Official Google CardView** in your Android app.
 
-[![](http://cdn.eyeem.com/thumb/h/400/f88f4ba735e60e5b6faa24b252d1c1b62e375f72-1384269072)] [![](http://cdn.eyeem.com/thumb/h/400/8c660660033aac40d3d099fbc220e993c57ed7eb-1384269111)]
+Before using this library I recommend that you check out the new Google Material Guidelines.Don't over cardify your UI.
 
-Usage
-============
-There are two main widgets which you can use:
+![Screen](/demo/images/cardsv2_small.png)
 
-- `ChipsEditText` for editable text and bubbles with an optional `AutocompletePopover`.
-- `ChipsTextView` if you plan only on displaying non-editable text with bubbles and optionally wish to provide some feedback on bubble press.
 
-Check out included `example` app to see how to play and what can be done with this library.
+## Examples
 
-Including in your project
-=========================
 
-You can either check out the repo manually or grab a snapshot `aar` which is hosted on sonatype repo. To do so, include this in your build.gradle file:
+![Screen](/demo/images/demo_gplay.png)
 
-```
-dependencies {
+* **Sample** application: The demo is a showcase of the functionality of the library.
 
-    repositories {
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
-        mavenCentral()
-        mavenLocal()
+	 [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=it.gmariotti.cardslib.demo)
+	 
+* **Extras** application: The demo-extras contains some examples of integration with other libraries
+	
+	[![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=it.gmariotti.cardslib.demo.extras)
+
+  
+## Support
+Join the [**Google+ Community**](https://plus.google.com/u/0/communities/111800040690738372803): 
+
+[![Join the Google+ Community](/demo/images/g+64.png)](https://plus.google.com/u/0/communities/111800040690738372803)
+	
+a place to discuss the library, share screenshots, ask for tips, talk with the author....﻿
+
+**If you would like, you can support my work, donating through the demo app.**
+
+
+## Doc
+
+See the **[Card Library Guide](/doc/GUIDE.md)** to know all card library features and all customizations.
+The Guide provides an extensive doc, with all tips and full examples. **Don't miss it**.
+
+
+## Setup
+
+Card Library is pushed to Maven Central as an AAR, so you just need to add the following dependency to your `build.gradle`.
+
+    dependencies {
+        //Core
+        compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
+        
+        //Optional for built-in cards
+        compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
+                
+        //Optional for RecyclerView
+        compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.1.0'
+          
+        //Optional for staggered grid view
+        compile 'com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid:2.1.0'
+         
+        //Optional for drag and drop
+        compile 'com.github.gabrielemariotti.cards:cardslib-extra-dragdrop:2.1.0'
+        
+        //Optional for twoway  (coming soon)
+        //compile 'com.github.gabrielemariotti.cards:cardslib-extra-twoway:2.1.0'
+        
     }
 
-    compile 'com.eyeem.chips:library:0.9.0-SNAPSHOT@aar'
+If you would like to use the last **v1 stable version** you can use:
+    
+    dependencies {
+        //Core card library
+        compile 'com.github.gabrielemariotti.cards:library:1.9.1'
 
-    // ...other dependencies
-}
-```
+        //Extra card library, it is required only if you want to use integrations with other libraries
+        compile 'com.github.gabrielemariotti.cards:library-extra:1.9.1'
+    }
 
-Developed By
-============
 
-* Lukasz Wisniewski [@vishna](https://twitter.com/vishna)
+## ChangeLog
 
-Whorthwhile mentions
-============
-- [chips-edittext-library](https://github.com/kpbird/chips-edittext-library)
-- [chips from Google](https://android.googlesource.com/platform/frameworks/ex/+/refs/heads/master/chips)
+* [Changelog:](CHANGELOG.md) A complete changelog
+
+
+Acknowledgements
+--------------------
+
+* Thanks to [Roman Nurik][1] for [Android-SwipeToDismiss][2] classes and [UndoBarController][3] classes.
+* Thanks to [Niek Haarman][4] for some ideas and code taken from his [ListViewAnimations][5].
+* Thanks to [Chris Banes][6] for [ForegroundLinearLayout][7] class (See this [post][8] for more info).
+* Thanks to [Taylor Ling][9] for drag and drop icon.
+* Thanks to [Frankie Sardo][10] for some ideas and code taken from his [LinearListView][11]
+* Thanks to Google for code and idea from [Google IO 14][12]
+
+Credits
+-------
+
+Author: Gabriele Mariotti (gabri.mariotti@gmail.com)
+
+<a href="https://plus.google.com/u/0/114432517923423045208">
+  <img alt="Follow me on Google+"
+       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/g+64.png" />
+</a>
+<a href="https://twitter.com/GabMarioPower">
+  <img alt="Follow me on Twitter"
+       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/twitter64.png" />
+</a>
+<a href="http://it.linkedin.com/in/gabrielemariotti">
+  <img alt="Follow me on LinkedIn"
+       src="https://github.com/gabrielemariotti/cardslib/raw/master/demo/images/linkedin.png" />
+</a>
 
 License
-=======
+-------
 
-    Copyright 2013 EyeEm Mobile GmbH
+    Copyright 2013-2014 Gabriele Mariotti
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -64,3 +125,22 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+---
+
+
+Google and the Google Maps logo are registered trademarks of Google Inc., used with permission.
+
+ [1]: https://plus.google.com/u/0/+RomanNurik/about
+ [2]: https://github.com/romannurik/Android-SwipeToDismiss
+ [3]: https://code.google.com/p/romannurik-code/source/browse/#git%2Fmisc%2Fundobar
+ [4]: https://plus.google.com/+NiekHaarman
+ [5]: https://github.com/nhaarman/ListViewAnimations
+ [6]: https://plus.google.com/+ChrisBanes
+ [7]: https://gist.github.com/chrisbanes/9091754
+ [8]: https://plus.google.com/+AndroidDevelopers/posts/aHPVDtr6mcp
+ [9]: https://plus.google.com/+TaylorLing
+ [10]: https://plus.google.com/+FrankieSardo
+ [11]: https://github.com/frankiesardo/LinearListView
+ [12]: https://github.com/google/iosched
