@@ -1,36 +1,44 @@
-FROM jlesage/baseimage:alpine-3.10-glibc as builder
+FROM gradle:6.8-jdk11 as builder
 
-ENV APP_HOME="/i2p"
+LABEL maintainer="https://jbake.org/community/team.html"
 
-WORKDIR /tmp/build
-COPY . .
+ENV JBAKE_HOME=/opt/jbake
 
-RUN add-pkg --virtual build-base gettext tar bzip2 apache-ant openjdk8 \
-    && ant preppkg-linux-only \
-    && rm -rf pkg-temp/osid pkg-temp/lib/wrapper pkg-temp/lib/wrapper.* \
-    && del-pkg build-base gettext tar bzip2 apache-ant openjdk8
+RUN mkdir -p ${JBAKE_HOME}
+COPY . /usr/src/jbake
 
-FROM jlesage/baseimage:alpine-3.10-glibc
-ENV APP_HOME="/i2p"
+RUN set -o errexit -o nounset \
+    && echo "Building JBake" \
+    && cd /usr/src/jbake \
+    && gradle --no-daemon installDist \
+    && cp -r jbake-dist/build/install/jbake/* $JBAKE_HOME \
+    && rm -r ~/.gradle /usr/src/jbake
 
-RUN add-pkg openjdk8-jre
-WORKDIR ${APP_HOME}
-COPY --from=builder /tmp/build/pkg-temp .
+FROM adoptopenjdk/openjdk11:alpine-jre
 
-# "install" i2p by copying over installed files
-COPY docker/rootfs/ /
+ENV JBAKE_USER=jbake
+ENV JBAKE_HOME=/opt/jbake
+ENV PATH ${JBAKE_HOME}/bin:$PATH
+ENV TZ=UTC
 
-# Mount home and snark
-VOLUME ["${APP_HOME}/.i2p"]
-VOLUME ["/i2psnark"]
+RUN apk --no-cache update && \
+    apk --no-cache upgrade && \
+    apk add --update tzdata && \
+    rm -rf /var/cache/apk/*
 
-EXPOSE 7654 7656 7657 7658 4444 6668 7659 7660 4445 12345
+RUN echo ${TZ} > /etc/timezone
 
-# Metadata.
-LABEL \
-      org.label-schema.name="i2p" \
-      org.label-schema.description="Docker container for I2P" \
-      org.label-schema.version="1.0" \
-      org.label-schema.vcs-url="https://github.com/i2p/i2p.i2p" \
-      org.label-schema.schema-version="1.0"
+RUN adduser -D -u 1000 -g "" ${JBAKE_USER} ${JBAKE_USER}
 
+USER ${JBAKE_USER}
+
+COPY --from=builder /opt/jbake /opt/jbake
+
+WORKDIR /mnt/site
+
+VOLUME ["/mnt/site"]
+
+ENTRYPOINT ["jbake"]
+CMD ["-b"]
+
+EXPOSE 8820
