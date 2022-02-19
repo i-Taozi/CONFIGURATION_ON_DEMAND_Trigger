@@ -1,44 +1,25 @@
-FROM gradle:6.8-jdk11 as builder
+FROM ubuntu:16.04
 
-LABEL maintainer="https://jbake.org/community/team.html"
+ENV DEBIAN_FRONTEND noninteractive
 
-ENV JBAKE_HOME=/opt/jbake
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true\
+    | debconf-set-selections
+RUN apt update &&\
+    apt upgrade -y &&\
+    apt install -y software-properties-common git unzip wget vim &&\
+    add-apt-repository -y ppa:webupd8team/java &&\
+    apt update &&\
+    apt install -y oracle-java8-installer &&\
+    apt clean &&\
+    rm -rf /var/lib/apt/lists/* /var/cache/oracle-jdk8-installer
+RUN wget https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz &&\
+    tar xf android-sdk_r24.4.1-linux.tgz &&\
+    mv android-sdk-linux /usr/local/android-sdk &&\
+    rm android-sdk_r24.4.1-linux.tgz
+RUN echo y | /usr/local/android-sdk/tools/android update sdk --filter "platform-tools,android-27,build-tools-27.0.3,tools,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services" --no-ui -a
+RUN wget https://services.gradle.org/distributions/gradle-4.4-bin.zip &&\
+    unzip gradle-4.4-bin.zip &&\
+    mv gradle-4.4/bin/* /usr/bin/ &&\
+    mv gradle-4.4/lib/* /usr/lib/ &&\
+    rm -rf gradle-4.4*
 
-RUN mkdir -p ${JBAKE_HOME}
-COPY . /usr/src/jbake
-
-RUN set -o errexit -o nounset \
-    && echo "Building JBake" \
-    && cd /usr/src/jbake \
-    && gradle --no-daemon installDist \
-    && cp -r jbake-dist/build/install/jbake/* $JBAKE_HOME \
-    && rm -r ~/.gradle /usr/src/jbake
-
-FROM adoptopenjdk/openjdk11:alpine-jre
-
-ENV JBAKE_USER=jbake
-ENV JBAKE_HOME=/opt/jbake
-ENV PATH ${JBAKE_HOME}/bin:$PATH
-ENV TZ=UTC
-
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk add --update tzdata && \
-    rm -rf /var/cache/apk/*
-
-RUN echo ${TZ} > /etc/timezone
-
-RUN adduser -D -u 1000 -g "" ${JBAKE_USER} ${JBAKE_USER}
-
-USER ${JBAKE_USER}
-
-COPY --from=builder /opt/jbake /opt/jbake
-
-WORKDIR /mnt/site
-
-VOLUME ["/mnt/site"]
-
-ENTRYPOINT ["jbake"]
-CMD ["-b"]
-
-EXPOSE 8820

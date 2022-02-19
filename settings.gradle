@@ -1,4 +1,4 @@
-rootProject.name = 'jbake-base'
-include 'jbake-core'
-include 'jbake-dist'
-
+include ':common'
+include ':hrdevice'
+include ':app'
+include ':wear'

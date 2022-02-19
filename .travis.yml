@@ -1,64 +1,35 @@
-language: java
-
-os: linux
-dist: focal
-
-addons:
-  hosts:
-  - jbake-builder
-  hostname: jbake-builder
-
-before_install:
-  - unset _JAVA_OPTIONS
-
-install: true
-
-script:
-- "./gradlew check --stacktrace"
-
+env:
+  global:
+  - ANDROID_API=30
+  - ANDROID_BUILD_TOOLS=30.0.3
+  - ADB_INSTALL_TIMEOUT=5
+language: android
 jdk:
-  - openjdk15
-  - openjdk11
-
-jobs:
-  include:
-
-  - jdk: openjdk15
-    os: osx
-
-  - jdk: openjdk11
-    os: osx
-
-  - stage: Quality Check
-    name: sonarqube
-    jdk: openjdk11
-    script:
-    - "./gradlew jacocoRootReport sonarqube -i --stacktrace"
-
-  - stage: Quality Check
-    name: coveralls
-    jdk: openjdk11
-    script:
-    - "./gradlew -PskipSigning jacocoRootReport coveralls -i --stacktrace"
-
-notifications:
-  irc: "irc.freenode.org#jbake"
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/2d332fabb02dba68a36b
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: never     # options: [always|never|change] default: always
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- oraclejdk8
 cache:
   directories:
-     - "$HOME/.m2/repository"
-     - "$HOME/.gradle/caches/"
-     - "$HOME/.gradle/wrapper/"
-     - "$HOME/.sonar/cache"
-     - ".gradle"
-     - "build"
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+before_cache:
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/*/classAnalysis/cache.properties.lock
+- rm -f $HOME/.gradle/caches/*/jarSnapshots/cache.properties.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+android:
+  components:
+  - tools #latest for "builtin" sdk tools (24.4.1 in Android-25)
+  #To update SDK Tools to latest, another update is required
+  #- tools #latest, 26.1.1 as of 2018-10-07
+  #- platform-tools #latest, 28.0.1 as of 2018-10-07
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
+  - extra-android-m2repository
+  - extra-google-m2repository
+  - extra-google-google_play_services
+notifications:
+  email: false
+script:
+- ./gradlew wear:lintRelease
+- ./gradlew app:lintLatestRelease
+- ./gradlew app:assembleLatestRelease
+- ./gradlew app:test
