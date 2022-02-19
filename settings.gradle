@@ -1,3 +1,6 @@
-// startParameter.offline=true
+rootProject.name = 'petstore'
 
-include ':app', ':libK3bZip', ':libK3b', ':libK3bAndroidZip'
+include 'domain'
+include 'persistence'
+include 'webapp'
+include 'server'
