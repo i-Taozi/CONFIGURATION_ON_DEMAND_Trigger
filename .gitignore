@@ -1,31 +1,15 @@
-# Mac crap
-.DS_Store
-.java-version
-
-# intellij
+MIDIDriverSample/target
+MIDIDriver/target
+MIDIDriver/.settings
+MIDIDriverSample/.settings
+MIDIDriver/bin
+MIDIDriverSample/bin
+MIDIDriver/gen
+MIDIDriverSample/gen
+MIDIDriverSample/build
+MIDIDriver/build
 .idea
-*.iml
-*.ipr
-*.iws
-
-# eclipse
-.settings
-.project
-.classpath
-target
-
-out
-javadocs
-build
-classes
 .gradle
-
-# configuration
+*.iml
 local.properties
-/.nb-gradle/
-
-# VS Code
-.browse.VC.db
-
-# NetBeans
-.nb-gradle-properties
+build
